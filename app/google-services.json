@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "631727837616",
+    "firebase_url": "https://databaseproject-86798-default-rtdb.firebaseio.com",
+    "project_id": "databaseproject-86798",
+    "storage_bucket": "databaseproject-86798.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:631727837616:android:e6a7ef2c6a44e622d64675",
+        "android_client_info": {
+          "package_name": "com.thinkingdobby.databaseproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "631727837616-r2kp19rs797bf00886llcii4467rv1hq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjKJmxtCM1mIHqKw0oMKh7fEuP8H8mRTE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "631727837616-r2kp19rs797bf00886llcii4467rv1hq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
