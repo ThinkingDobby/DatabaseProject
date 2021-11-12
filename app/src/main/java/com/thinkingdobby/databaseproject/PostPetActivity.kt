@@ -1,17 +1,16 @@
 package com.thinkingdobby.databaseproject
 
-import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_post_pet.*
 
-class HomeActivity : AppCompatActivity() {
+class PostPetActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        setContentView(R.layout.activity_post_pet)
 
         window.apply {
             decorView.systemUiVisibility =
@@ -22,19 +21,8 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        // 하단 메뉴
-        home_btn_toFindPet.setOnClickListener {
-            val intent = Intent(this, FindPetActivity::class.java)
-            startActivity(intent)
+        postPet_btn_back.setOnClickListener {
             finish()
         }
-
-        home_btn_toFindPerson.setOnClickListener {
-            val intent = Intent(this, FindPersonActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-
     }
 }

@@ -18,10 +18,11 @@
         android:includeFontPadding="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
         android:layout_marginStart="24dp"/>
 
     <ImageView
+        android:id="@+id/findPet_btn_add"
         android:layout_width="30sp"
         android:layout_height="30sp"
         app:layout_constraintTop_toTopOf="@id/findPet_tv_title"
@@ -31,6 +32,7 @@
         android:layout_marginEnd="30dp"/>
     
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/findPet_rv_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="15dp"
@@ -73,6 +75,7 @@
         android:src="@drawable/bot_icon_find_pet_on"/>
 
     <ImageView
+        android:id="@+id/findPet_btn_toFindPerson"
         android:layout_width="32dp"
         android:layout_height="32dp"
         app:layout_constraintStart_toStartOf="@id/findPet_gl_1"
@@ -82,6 +85,7 @@
         android:src="@drawable/bot_icon_find_person_off"/>
 
     <ImageView
+        android:id="@+id/findPet_btn_toHome"
         android:layout_width="32dp"
         android:layout_height="32dp"
         app:layout_constraintStart_toStartOf="@id/findPet_gl_2"

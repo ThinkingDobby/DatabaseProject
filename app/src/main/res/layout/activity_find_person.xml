@@ -64,6 +64,7 @@
         app:layout_constraintGuide_percent="0.67" />
 
     <ImageView
+        android:id="@+id/findPerson_btn_toFindPet"
         android:layout_width="32dp"
         android:layout_height="32dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,6 +83,7 @@
         android:src="@drawable/bot_icon_find_person_on"/>
 
     <ImageView
+        android:id="@+id/findPerson_btn_toHome"
         android:layout_width="32dp"
         android:layout_height="32dp"
         app:layout_constraintStart_toStartOf="@id/findPerson_gl_2"

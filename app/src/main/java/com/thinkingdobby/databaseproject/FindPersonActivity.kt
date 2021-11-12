@@ -1,9 +1,11 @@
 package com.thinkingdobby.databaseproject
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import kotlinx.android.synthetic.main.activity_find_person.*
 
 class FindPersonActivity : AppCompatActivity() {
 
@@ -18,6 +20,19 @@ class FindPersonActivity : AppCompatActivity() {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                 statusBarColor = Color.TRANSPARENT
             }
+        }
+
+        // 하단 메뉴
+        findPerson_btn_toFindPet.setOnClickListener {
+            val intent = Intent(this, FindPetActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        findPerson_btn_toHome.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }
