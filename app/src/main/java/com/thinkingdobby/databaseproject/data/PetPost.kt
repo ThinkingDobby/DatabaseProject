@@ -2,11 +2,11 @@ package com.thinkingdobby.databaseproject.data
 
 class PetPost {
     var postId = ""
-    var postTime = ""
-    var writeTime = ""
+    var writeTime: Any = "" // 정렬을 위한 시간
     var writer = "" // 계정 생성 시 writer 정보 추가 - 게시자 정보 확인 시 게시자 이름으로 정보 검색
 
     var location = ""
+    var lostTime = ""
     var breed = ""
     var name = ""
     var sex = ""
@@ -15,5 +15,5 @@ class PetPost {
     var info = ""   // 특징
     var stat = ""   // 상태
 
-    var find = ""
+    var find: Boolean = false
 }
