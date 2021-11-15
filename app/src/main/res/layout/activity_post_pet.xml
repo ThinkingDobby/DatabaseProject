@@ -57,6 +57,7 @@
                 android:src="@drawable/card_background_sample"/>
 
             <ImageView
+                android:id="@+id/postPet_btn_gallery"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_marginStart="8dp"

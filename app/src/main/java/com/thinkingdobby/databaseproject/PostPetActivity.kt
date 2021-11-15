@@ -1,16 +1,22 @@
 package com.thinkingdobby.databaseproject
 
+import android.Manifest
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
+import com.google.firebase.storage.FirebaseStorage
 import com.thinkingdobby.databaseproject.data.PetPost
 import kotlinx.android.synthetic.main.activity_post_pet.*
 import java.text.SimpleDateFormat
@@ -20,10 +26,17 @@ class PostPetActivity : AppCompatActivity() {
 
     private var lostTime = SimpleDateFormat("yyyy년 MM월 dd일").format(Date())
     private var sex = "남"
+    private var pickImageFromAlbum = 0
+    private var uriPhoto: Uri? = Uri.parse("android.resource://com.thinkingdobby.databaseproject/drawable/card_background_sample")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_pet)
+
+        // request permission
+        ActivityCompat.requestPermissions(this,
+            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+        // request permission
 
         window.apply {
             decorView.systemUiVisibility =
@@ -38,6 +51,8 @@ class PostPetActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
             finish()
         }
+
+        postPet_btn_gallery.setOnClickListener { loadImage() }
 
         postPet_btn_selectLostTime.setOnClickListener {
             val today = GregorianCalendar()
@@ -96,10 +111,39 @@ class PostPetActivity : AppCompatActivity() {
             post.find = false
 
             // Firebase Database Upload
-            ref.setValue(post).addOnSuccessListener {
-                Toast.makeText(this@PostPetActivity, "업로드 되었습니다.", Toast.LENGTH_SHORT).show()
+            ref.setValue(post)
+
+            // Firebase Storage Upload
+            imageUpload(post.postId)
+        }
+    }
+
+    private fun loadImage() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+
+        startActivityForResult(Intent.createChooser(intent, "Load Picture"), pickImageFromAlbum)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == pickImageFromAlbum) {
+            if (resultCode == Activity.RESULT_OK) {
+                uriPhoto = data?.data
+                postPet_iv_pet.setImageURI(uriPhoto)
+            } else {
                 finish()
             }
+        }
+    }
+
+    private fun imageUpload(id: String) {
+        val storageRef = FirebaseStorage.getInstance().reference.child("images").child(id)
+
+        storageRef.putFile(uriPhoto!!).addOnSuccessListener {
+            Toast.makeText(this@PostPetActivity, "업로드 되었습니다.", Toast.LENGTH_SHORT).show()
+            finish()
         }
     }
 
