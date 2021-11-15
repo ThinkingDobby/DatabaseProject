@@ -34,6 +34,12 @@ class MainActivity : AppCompatActivity() {
         main_iv_login.setOnClickListener {
             val intent = Intent(this, FindPetActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
         }
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout)
     }
 }

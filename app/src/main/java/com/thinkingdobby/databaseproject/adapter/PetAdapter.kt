@@ -20,6 +20,6 @@ class PetAdapter(val context: Context, val dataList: MutableList<PetPost>) : Rec
     }
 
     override fun onBindViewHolder(holder: PetViewHolder, position: Int) {
-        holder?.bind(dataList[position])
+        holder.bind(dataList[position])
     }
 }
