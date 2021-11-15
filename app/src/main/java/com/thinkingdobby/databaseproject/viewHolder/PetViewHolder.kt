@@ -1,17 +1,23 @@
 package com.thinkingdobby.databaseproject.viewHolder
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.ColorFilter
+import android.os.Build
 import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.thinkingdobby.databaseproject.R
 import com.thinkingdobby.databaseproject.data.PetPost
 import kotlinx.android.synthetic.main.pet_card.view.*
+
 
 class PetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val pet_iv_background = itemView.pet_iv_background
@@ -25,6 +31,7 @@ class PetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val pet_iv_belt = itemView.pet_iv_belt
     val pet_tv_belt = itemView.pet_tv_belt
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     fun bind(pet: PetPost, context: Context) {
         pet_tv_location.text = pet.location
         pet_tv_breed.text = pet.breed
@@ -43,17 +50,31 @@ class PetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
 
         val circularProgressDrawable = CircularProgressDrawable(context)
+        circularProgressDrawable.setTint(Color.WHITE)   // 추후 수정
         circularProgressDrawable.strokeWidth = 5f
         circularProgressDrawable.centerRadius = 30f
         circularProgressDrawable.start()
 
         // 스토리지에서 이미지 받아오기
         val storageRef = FirebaseStorage.getInstance().getReference("images").child(pet.postId)
+        Log.d("test", storageRef.toString())
 
-        Glide.with(context)
-            .load(storageRef)
-            .placeholder(circularProgressDrawable)
-            .transform(CenterCrop())
-            .into(pet_iv_background)
+        storageRef.downloadUrl.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // Glide 이용하여 이미지뷰에 로딩
+                Glide.with(context)
+                    .load(task.result)
+                    .placeholder(circularProgressDrawable)
+                    .transform(CenterCrop())
+                    .into(pet_iv_background)
+            } else {
+                // URL을 가져오지 못하면 토스트 메세지
+                Toast.makeText(
+                    context,
+                    task.exception!!.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 }
