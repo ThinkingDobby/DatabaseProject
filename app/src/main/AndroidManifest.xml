@@ -14,8 +14,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".PostPetActivity"
             android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".FindPersonActivity" />
         <activity android:name=".FindPetActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

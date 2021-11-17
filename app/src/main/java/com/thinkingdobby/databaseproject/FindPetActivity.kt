@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_find_pet.*
 
 class FindPetActivity : AppCompatActivity() {
 
+    private var mode: String? = "FindPet"
     private val postList = mutableListOf<PetPost>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,25 +32,55 @@ class FindPetActivity : AppCompatActivity() {
             }
         }
 
+        mode = intent.getStringExtra("mode") ?: "FindPet"
+
+        if (mode == "FindPet") {
+            findPet_tv_title.text = "주인이 찾고 있는 동물들"
+
+            findPet_btn_toFindPet.setImageResource(R.drawable.bot_icon_find_pet_on)
+            findPet_btn_toFindPerson.setImageResource(R.drawable.bot_icon_find_person_off)
+            findPet_btn_toHome.setImageResource(R.drawable.bot_icon_home_off)
+        } else if (mode == "FindPerson") {
+            findPet_tv_title.text = "주인을 찾고 있는 동물들"
+
+            findPet_btn_toFindPet.setImageResource(R.drawable.bot_icon_find_pet_off)
+            findPet_btn_toFindPerson.setImageResource(R.drawable.bot_icon_find_person_on)
+            findPet_btn_toHome.setImageResource(R.drawable.bot_icon_home_off)
+        }
+
         findPet_btn_add.setOnClickListener {
             val intent = Intent(this, PostPetActivity::class.java)
+            intent.putExtra("mode", mode)
             startActivity(intent)
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
         }
 
         // 하단 메뉴
-        findPet_btn_toFindPerson.setOnClickListener {
-            val intent = Intent(this, FindPersonActivity::class.java)
+        findPet_btn_toFindPet.setOnClickListener {
+            finish()
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+
+            mode = "FindPet"
+            intent.putExtra("mode", mode)
             startActivity(intent)
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+        }
+
+        findPet_btn_toFindPerson.setOnClickListener {
             finish()
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+
+            mode = "FindPerson"
+            intent.putExtra("mode", mode)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
         }
 
         findPet_btn_toHome.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
-            finish()
+//            val intent = Intent(this, HomeActivity::class.java)
+//            startActivity(intent)
+//            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+//            finish()
         }
 
 
@@ -61,7 +92,7 @@ class FindPetActivity : AppCompatActivity() {
         findPet_rv_list.layoutManager = layoutManager
         findPet_rv_list.adapter = PetAdapter(this@FindPetActivity, postList)
 
-        FirebaseDatabase.getInstance().getReference("FindPet")
+        FirebaseDatabase.getInstance().getReference(mode!!)
             .orderByChild("writeTime").addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                     snapshot?.let { snapshot ->

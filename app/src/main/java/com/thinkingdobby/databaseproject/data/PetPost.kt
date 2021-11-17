@@ -6,7 +6,7 @@ class PetPost {
     var writer = "" // 계정 생성 시 writer 정보 추가 - 게시자 정보 확인 시 게시자 이름으로 정보 검색
 
     var location = ""
-    var lostTime = ""
+    var time = ""
     var breed = ""
     var name = ""
     var sex = ""

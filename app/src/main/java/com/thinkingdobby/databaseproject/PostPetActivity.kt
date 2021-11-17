@@ -24,10 +24,12 @@ import java.util.*
 
 class PostPetActivity : AppCompatActivity() {
 
-    private var lostTime = SimpleDateFormat("yyyy년 MM월 dd일").format(Date())
+    private var time = SimpleDateFormat("yyyy년 MM월 dd일").format(Date())
     private var sex = "남"
     private var pickImageFromAlbum = 0
     private var uriPhoto: Uri? = Uri.parse("android.resource://com.thinkingdobby.databaseproject/drawable/card_background_sample")
+
+    private var mode: String? = "FindPet"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +49,16 @@ class PostPetActivity : AppCompatActivity() {
             }
         }
 
+        postPet_et_time.text = time
+
+        mode = intent.getStringExtra("mode")
+        if (mode == "FindPerson") {
+            postPet_tv_location.text = "발견장소"
+            postPet_et_location.hint = "발견장소를 입력하세요"
+
+            postPet_tv_time.text = "발견일시"
+        }
+
         postPet_btn_back.setOnClickListener {
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
             finish()
@@ -54,15 +66,15 @@ class PostPetActivity : AppCompatActivity() {
 
         postPet_btn_gallery.setOnClickListener { loadImage() }
 
-        postPet_btn_selectLostTime.setOnClickListener {
+        postPet_btn_selectTime.setOnClickListener {
             val today = GregorianCalendar()
             val year: Int = today.get(Calendar.YEAR)
             val month: Int = today.get(Calendar.MONTH)
             val date: Int = today.get(Calendar.DATE)
             val dlg = DatePickerDialog(this, object : DatePickerDialog.OnDateSetListener {
                 override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-                    lostTime = "${year}년 ${month+1}월 ${dayOfMonth}일"
-                    postPet_et_lostTime.setText(lostTime)
+                    time = "${year}년 ${month+1}월 ${dayOfMonth}일"
+                    postPet_et_time.setText(time)
                 }
             }, year, month, date)
             dlg.show()
@@ -91,7 +103,7 @@ class PostPetActivity : AppCompatActivity() {
             ProgressDialog.show(this, "", "업로드 중입니다...", true)
 
             // Firebase Database Upload
-            val ref = FirebaseDatabase.getInstance().getReference("FindPet").push()
+            val ref = FirebaseDatabase.getInstance().getReference(mode!!).push()
 
             val post = PetPost()
             post.postId = ref.key!!
@@ -99,7 +111,7 @@ class PostPetActivity : AppCompatActivity() {
             post.writer = "temp"
 
             post.location = postPet_et_location.text.toString()
-            post.lostTime = lostTime
+            post.time = time
             post.breed = postPet_et_breed.text.toString()
             post.name = postPet_et_name.text.toString()
             post.sex = postPet_et_sex.text.toString()
