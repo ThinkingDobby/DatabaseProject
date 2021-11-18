@@ -14,7 +14,7 @@
             android:id="@+id/pet_iv_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorBlack"
+            android:background="@color/colorWhite"
             android:scaleType="centerCrop"/>
         
         <ImageView
@@ -118,8 +118,8 @@
         
         <ImageView
             android:id="@+id/pet_iv_sex"
-            android:layout_width="11dp"
-            android:layout_height="15dp"
+            android:layout_width="15dp"
+            android:layout_height="16dp"
             android:src="@drawable/icon_gender_girl"
             android:layout_marginTop="3dp"
             android:layout_marginStart="7dp"

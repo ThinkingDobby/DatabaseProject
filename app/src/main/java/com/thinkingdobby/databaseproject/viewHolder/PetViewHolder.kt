@@ -57,7 +57,6 @@ class PetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         // 스토리지에서 이미지 받아오기
         val storageRef = FirebaseStorage.getInstance().getReference("images").child(pet.postId)
-        Log.d("test", storageRef.toString())
 
         storageRef.downloadUrl.addOnCompleteListener { task ->
             if (task.isSuccessful) {

@@ -36,8 +36,8 @@
 
             <ImageView
                 android:id="@+id/postPet_btn_back"
-                android:layout_width="30sp"
-                android:layout_height="30sp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="24dp"
                 app:layout_constraintTop_toTopOf="@id/findPet_tv_title"
                 app:layout_constraintBottom_toBottomOf="@id/findPet_tv_title"
