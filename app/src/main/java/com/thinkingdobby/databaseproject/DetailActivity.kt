@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -41,6 +40,11 @@ class DetailActivity : AppCompatActivity() {
         val pet = bundle!!.getParcelable<PetPost>("selectedPet")!!
         val mode = intent.getStringExtra("mode") ?: "FindPet"
         val nowId = getMyId(this)
+
+        if (mode == "FindPerson") {
+            detail_tv_location.text = "발견장소"
+            detail_tv_time.text = "발견일시"
+        }
 
         if (pet.find) {
             detail_iv_belt.visibility = View.VISIBLE
@@ -89,6 +93,18 @@ class DetailActivity : AppCompatActivity() {
         detail_et_stat.text = pet.stat
 
         detail_btn_back.setOnClickListener {
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+            finish()
+        }
+
+        detail_btn_edit.setOnClickListener {
+            val intent = Intent(this, PostPetActivity::class.java)
+            val bundle = Bundle()
+            bundle.putParcelable("selectedPet", pet)
+            intent.putExtras(bundle)
+            intent.putExtra("mode", mode)
+            intent.putExtra("edit", "yes")
+            startActivity(intent)
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
             finish()
         }

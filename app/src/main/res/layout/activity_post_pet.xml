@@ -54,7 +54,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/card_background_sample"/>
+                android:background="@color/colorWhite"/>
 
             <ImageView
                 android:id="@+id/postPet_btn_gallery"
@@ -475,6 +475,7 @@
                 android:src="@drawable/post_button_post"/>
 
             <TextView
+                android:id="@+id/postPet_tv_post"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="@id/postPet_btn_post"

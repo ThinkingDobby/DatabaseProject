@@ -7,19 +7,25 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.DatePicker
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 import com.google.firebase.storage.FirebaseStorage
 import com.thinkingdobby.databaseproject.data.PetPost
 import com.thinkingdobby.databaseproject.functions.getMyId
 import kotlinx.android.synthetic.main.activity_post_pet.*
+import kotlinx.android.synthetic.main.activity_post_pet.findPet_tv_title
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -31,7 +37,10 @@ class PostPetActivity : AppCompatActivity() {
     private var uriPhoto: Uri? = Uri.parse("android.resource://com.thinkingdobby.databaseproject/drawable/card_background_sample")
 
     private var mode: String? = "FindPet"
+    private var postId = "temp"
+    private var imageChanged = false
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_pet)
@@ -53,11 +62,59 @@ class PostPetActivity : AppCompatActivity() {
         postPet_et_time.text = time
 
         mode = intent.getStringExtra("mode")
+
         if (mode == "FindPerson") {
             postPet_tv_location.text = "발견장소"
             postPet_et_location.hint = "발견장소를 입력하세요"
 
             postPet_tv_time.text = "발견일시"
+        }
+
+        val edit = intent.getStringExtra("edit") ?: "no"
+        if (edit == "yes") {
+            val bundle = intent.extras
+            val pet = bundle!!.getParcelable<PetPost>("selectedPet")!!
+            postId = pet.postId
+
+            findPet_tv_title.text = "포스트 수정"
+            postPet_tv_post.text = "포스트 수정"
+
+            postPet_et_location.setText(pet.location)
+            postPet_et_time.text = pet.time
+            postPet_et_info.setText(pet.info)
+            postPet_et_name.setText(pet.name)
+            postPet_et_breed.setText(pet.breed)
+            postPet_et_sex.text = pet.sex
+            postPet_et_length.setText(pet.length)
+            postPet_et_stat.setText(pet.stat)
+
+            val storageRef = FirebaseStorage.getInstance().getReference("images").child(pet.postId)
+
+            val circularProgressDrawable = CircularProgressDrawable(this@PostPetActivity)
+            circularProgressDrawable.setTint(Color.WHITE)   // 추후 수정
+            circularProgressDrawable.strokeWidth = 5f
+            circularProgressDrawable.centerRadius = 30f
+            circularProgressDrawable.start()
+
+            storageRef.downloadUrl.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Glide 이용하여 이미지뷰에 로딩
+                    Glide.with(this@PostPetActivity)
+                        .load(task.result)
+                        .placeholder(circularProgressDrawable)
+                        .transform(CenterCrop())
+                        .into(postPet_iv_pet)
+                } else {
+                    // URL을 가져오지 못하면 토스트 메세지
+                    Toast.makeText(
+                        this@PostPetActivity,
+                        task.exception!!.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        } else {
+            postPet_iv_pet.setImageResource(R.drawable.card_background_sample)
         }
 
         postPet_btn_back.setOnClickListener {
@@ -99,15 +156,14 @@ class PostPetActivity : AppCompatActivity() {
         }
 
 
-
         postPet_btn_post.setOnClickListener {
             ProgressDialog.show(this, "", "업로드 중입니다...", true)
 
             // Firebase Database Upload
-            val ref = FirebaseDatabase.getInstance().getReference(mode!!).push()
+            var ref = FirebaseDatabase.getInstance().getReference(mode!!).push()
 
             val post = PetPost()
-            post.postId = ref.key!!
+            post.postId = if (edit == "no") ref.key!! else postId
             post.writeTime = ServerValue.TIMESTAMP
             post.writer = getMyId(this)
 
@@ -124,10 +180,16 @@ class PostPetActivity : AppCompatActivity() {
             post.find = false
 
             // Firebase Database Upload
-            ref.setValue(post)
+            if (edit == "no") ref.setValue(post)
+            // Firebase Update
+            else FirebaseDatabase.getInstance().getReference("$mode/$postId").setValue(post)
 
             // Firebase Storage Upload
-            imageUpload(post.postId)
+            if (imageChanged) imageUpload(post.postId)
+            else {
+                Toast.makeText(this@PostPetActivity, "업로드 되었습니다.", Toast.LENGTH_SHORT).show()
+                finish()
+            }
         }
     }
 
@@ -145,8 +207,7 @@ class PostPetActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 uriPhoto = data?.data
                 postPet_iv_pet.setImageURI(uriPhoto)
-            } else {
-                finish()
+                imageChanged = true
             }
         }
     }
