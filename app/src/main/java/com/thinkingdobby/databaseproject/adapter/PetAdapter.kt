@@ -14,7 +14,7 @@ import com.thinkingdobby.databaseproject.data.PetPost
 import com.thinkingdobby.databaseproject.viewHolder.PetViewHolder
 import kotlinx.android.synthetic.main.pet_card.view.*
 
-class PetAdapter(val context: Context, val dataList: MutableList<PetPost>) : RecyclerView.Adapter<PetViewHolder>() {
+class PetAdapter(val context: Context, val dataList: MutableList<PetPost>, val mode: String) : RecyclerView.Adapter<PetViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PetViewHolder {
         val view = LayoutInflater.from(context)
             .inflate(R.layout.pet_card, parent, false)
@@ -33,6 +33,7 @@ class PetAdapter(val context: Context, val dataList: MutableList<PetPost>) : Rec
             val bundle = Bundle()
             bundle.putParcelable("selectedPet", dataList[position])
             intent.putExtras(bundle)
+            intent.putExtra("mode", mode)
             context.startActivity(intent)
         }
     }

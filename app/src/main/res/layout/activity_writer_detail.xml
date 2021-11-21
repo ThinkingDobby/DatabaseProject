@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/basic_background"
+    tools:context=".WriterDetailActivity">
+
+    <TextView
+        android:id="@+id/writerDetail_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="게시자 정보"
+        android:textSize="25sp"
+        android:textColor="@color/colorWhite"
+        android:fontFamily="@font/noto_bold"
+        android:includeFontPadding="false"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintStart_toEndOf="@id/writerDetail_btn_back"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/writerDetail_btn_back"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintTop_toTopOf="@id/writerDetail_tv_title"
+        app:layout_constraintBottom_toBottomOf="@id/writerDetail_tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/button_back"/>
+
+    <TextView
+        android:id="@+id/writerDetail_tv_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="닉네임"
+        android:textSize="16sp"
+        android:fontFamily="@font/noto_bold"
+        android:textColor="@color/colorWhite"
+        android:includeFontPadding="false"
+        android:layout_marginTop="44dp"
+        app:layout_constraintTop_toBottomOf="@id/writerDetail_tv_title"
+        app:layout_constraintStart_toStartOf="@id/writerDetail_tv_title"/>
+
+    <ImageView
+        android:layout_width="1dp"
+        android:layout_height="14dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toTopOf="@id/writerDetail_tv_nickname"
+        app:layout_constraintBottom_toBottomOf="@id/writerDetail_tv_nickname"
+        app:layout_constraintEnd_toStartOf="@id/writerDetail_tv_nickname"
+        android:src="@drawable/post_line_vertical"/>
+
+    <TextView
+        android:id="@+id/writerDetail_et_nickname"
+        android:layout_width="244dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="rabbito"
+        android:textColorHint="@color/colorGray"
+        android:textColor="@color/colorWhite"
+        android:fontFamily="@font/noto_regular"
+        android:textSize="14sp"
+        android:includeFontPadding="false"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="@id/writerDetail_tv_nickname"
+        app:layout_constraintTop_toBottomOf="@id/writerDetail_tv_nickname"/>
+
+    <TextView
+        android:id="@+id/writerDetail_tv_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="연락처"
+        android:textSize="16sp"
+        android:fontFamily="@font/noto_bold"
+        android:textColor="@color/colorWhite"
+        android:includeFontPadding="false"
+        android:layout_marginTop="31dp"
+        app:layout_constraintTop_toBottomOf="@id/writerDetail_et_nickname"
+        app:layout_constraintStart_toStartOf="@id/writerDetail_tv_title"/>
+
+    <ImageView
+        android:layout_width="1dp"
+        android:layout_height="14dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toTopOf="@id/writerDetail_tv_contact"
+        app:layout_constraintBottom_toBottomOf="@id/writerDetail_tv_contact"
+        app:layout_constraintEnd_toStartOf="@id/writerDetail_tv_contact"
+        android:src="@drawable/post_line_vertical"/>
+
+    <TextView
+        android:id="@+id/writerDetail_et_contact"
+        android:layout_width="244dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="rabbito@tmp.net"
+        android:textColorHint="@color/colorGray"
+        android:textColor="@color/colorWhite"
+        android:fontFamily="@font/noto_regular"
+        android:textSize="14sp"
+        android:includeFontPadding="false"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="@id/writerDetail_tv_contact"
+        app:layout_constraintTop_toBottomOf="@id/writerDetail_tv_contact"/>
+
+    <TextView
+        android:id="@+id/writerDetail_tv_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="설명"
+        android:textSize="16sp"
+        android:fontFamily="@font/noto_bold"
+        android:textColor="@color/colorWhite"
+        android:includeFontPadding="false"
+        android:layout_marginTop="31dp"
+        app:layout_constraintTop_toBottomOf="@id/writerDetail_et_contact"
+        app:layout_constraintStart_toStartOf="@id/writerDetail_tv_title"/>
+
+    <ImageView
+        android:layout_width="1dp"
+        android:layout_height="14dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toTopOf="@id/writerDetail_tv_info"
+        app:layout_constraintBottom_toBottomOf="@id/writerDetail_tv_info"
+        app:layout_constraintEnd_toStartOf="@id/writerDetail_tv_info"
+        android:src="@drawable/post_line_vertical"/>
+
+    <TextView
+        android:id="@+id/writerDetail_et_info"
+        android:layout_width="244dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="이메일로 연락주세요."
+        android:textColorHint="@color/colorGray"
+        android:textColor="@color/colorWhite"
+        android:fontFamily="@font/noto_regular"
+        android:textSize="14sp"
+        android:includeFontPadding="false"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="@id/writerDetail_tv_info"
+        app:layout_constraintTop_toBottomOf="@id/writerDetail_tv_info"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

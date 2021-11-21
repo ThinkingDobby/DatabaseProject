@@ -90,7 +90,7 @@ class FindPetActivity : AppCompatActivity() {
         layoutManager.stackFromEnd = true
 
         findPet_rv_list.layoutManager = layoutManager
-        findPet_rv_list.adapter = PetAdapter(this@FindPetActivity, postList)
+        findPet_rv_list.adapter = PetAdapter(this@FindPetActivity, postList, mode!!)
 
         FirebaseDatabase.getInstance().getReference(mode!!)
             .orderByChild("writeTime").addChildEventListener(object : ChildEventListener {

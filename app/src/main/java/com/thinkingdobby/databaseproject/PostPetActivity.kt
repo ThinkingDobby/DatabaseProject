@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 import com.google.firebase.storage.FirebaseStorage
 import com.thinkingdobby.databaseproject.data.PetPost
+import com.thinkingdobby.databaseproject.functions.getMyId
 import kotlinx.android.synthetic.main.activity_post_pet.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -108,7 +109,7 @@ class PostPetActivity : AppCompatActivity() {
             val post = PetPost()
             post.postId = ref.key!!
             post.writeTime = ServerValue.TIMESTAMP
-            post.writer = "temp"
+            post.writer = getMyId(this)
 
             post.location = postPet_et_location.text.toString()
             post.time = time

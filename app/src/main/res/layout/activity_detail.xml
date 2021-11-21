@@ -389,7 +389,7 @@
 
 
             <ImageView
-                android:id="@+id/detail_btn_post"
+                android:id="@+id/detail_btn_writerInfo"
                 android:layout_width="268dp"
                 android:layout_height="35dp"
                 android:layout_marginTop="48dp"
@@ -401,10 +401,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/detail_btn_post"
-                app:layout_constraintBottom_toBottomOf="@id/detail_btn_post"
-                app:layout_constraintStart_toStartOf="@id/detail_btn_post"
-                app:layout_constraintEnd_toEndOf="@id/detail_btn_post"
+                app:layout_constraintTop_toTopOf="@id/detail_btn_writerInfo"
+                app:layout_constraintBottom_toBottomOf="@id/detail_btn_writerInfo"
+                app:layout_constraintStart_toStartOf="@id/detail_btn_writerInfo"
+                app:layout_constraintEnd_toEndOf="@id/detail_btn_writerInfo"
                 android:text="게시자 확인"
                 android:textSize="13sp"
                 android:fontFamily="@font/noto_medium"

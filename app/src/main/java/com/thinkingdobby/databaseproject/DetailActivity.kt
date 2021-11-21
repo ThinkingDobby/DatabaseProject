@@ -1,23 +1,32 @@
 package com.thinkingdobby.databaseproject
 
+import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.thinkingdobby.databaseproject.data.PetPost
+import com.thinkingdobby.databaseproject.functions.getMyId
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout)
 
         window.apply {
             decorView.systemUiVisibility =
@@ -30,10 +39,18 @@ class DetailActivity : AppCompatActivity() {
 
         val bundle = intent.extras
         val pet = bundle!!.getParcelable<PetPost>("selectedPet")!!
+        val mode = intent.getStringExtra("mode") ?: "FindPet"
+        val nowId = getMyId(this)
 
         if (pet.find) {
             detail_iv_belt.visibility = View.VISIBLE
             detail_tv_belt.visibility = View.VISIBLE
+        }
+
+        if (pet.writer == nowId) {
+            detail_btn_change.visibility = View.VISIBLE
+            detail_btn_edit.visibility = View.VISIBLE
+            detail_btn_delete.visibility = View.VISIBLE
         }
 
         val storageRef = FirebaseStorage.getInstance().getReference("images").child(pet.postId)
@@ -75,5 +92,36 @@ class DetailActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
             finish()
         }
+
+        detail_btn_delete.setOnClickListener {
+            val ref = FirebaseDatabase.getInstance().getReference(mode).child(pet.postId)
+            val builder = AlertDialog.Builder(this@DetailActivity)
+            builder.setTitle("글을 삭제할까요?")
+
+            builder.setPositiveButton("아니오") { _, which ->
+            }
+
+            builder.setNegativeButton("예") {_, which ->
+                if (pet.writer == nowId) {
+                    ref.removeValue()
+                    storageRef.delete()
+                    Toast.makeText(this@DetailActivity, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+            }
+            builder.create().show()
+        }
+
+        detail_btn_writerInfo.setOnClickListener {
+            val intent = Intent(this, WriterDetailActivity::class.java)
+            intent.putExtra("writerId", pet.writer)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+        }
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout)
     }
 }
