@@ -33,7 +33,9 @@ class PetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val pet_tv_belt = itemView.pet_tv_belt
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    fun bind(pet: PetPost, context: Context) {
+    fun bind(pet: PetPost, context: Context, mode: String) {
+        if (mode == "FindPet") pet_tv_belt.text = "동물 찾음"
+
         pet_tv_location.text = pet.location
         pet_tv_breed.text = pet.breed
         pet_tv_name.text = pet.name

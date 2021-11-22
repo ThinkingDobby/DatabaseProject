@@ -22,6 +22,8 @@ import java.lang.IllegalArgumentException
 
 class DetailActivity : AppCompatActivity() {
 
+    private var find = false
+
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +48,12 @@ class DetailActivity : AppCompatActivity() {
         if (mode == "FindPerson") {
             detail_tv_location.text = "발견장소"
             detail_tv_time.text = "발견일시"
+        } else {
+            detail_tv_belt.text = "동물 찾음"
         }
 
-        if (pet.find) {
+        find = pet.find
+        if (find) {
             detail_iv_belt.visibility = View.VISIBLE
             detail_tv_belt.visibility = View.VISIBLE
         }
@@ -101,6 +106,19 @@ class DetailActivity : AppCompatActivity() {
         detail_btn_back.setOnClickListener {
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
             finish()
+        }
+
+        detail_btn_change.setOnClickListener {
+            if (find) {
+                find = false
+                detail_iv_belt.visibility = View.INVISIBLE
+                detail_tv_belt.visibility = View.INVISIBLE
+            } else {
+                find = true
+                detail_iv_belt.visibility = View.VISIBLE
+                detail_tv_belt.visibility = View.VISIBLE
+            }
+            FirebaseDatabase.getInstance().getReference("$mode/${pet.postId}/find").setValue(find)
         }
 
         detail_btn_edit.setOnClickListener {
