@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.ChildEventListener
@@ -84,7 +85,6 @@ class FindPetActivity : AppCompatActivity() {
         }
 
 
-
         val layoutManager = LinearLayoutManager(this@FindPetActivity)
         layoutManager.reverseLayout = true
         layoutManager.stackFromEnd = true
@@ -92,74 +92,84 @@ class FindPetActivity : AppCompatActivity() {
         findPet_rv_list.layoutManager = layoutManager
         findPet_rv_list.adapter = PetAdapter(this@FindPetActivity, postList, mode!!)
 
-        FirebaseDatabase.getInstance().getReference(mode!!)
-            .orderByChild("writeTime").addChildEventListener(object : ChildEventListener {
-                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    snapshot?.let { snapshot ->
-                        val post = snapshot.getValue(PetPost::class.java)
-                        post?.let {
-                            if (previousChildName == null) {
-                                postList.add(it)
-                                findPet_rv_list.adapter?.notifyItemInserted(postList.size - 1)
-                            } else {
-                                val prevIndex = postList.map { it.postId }.indexOf(previousChildName)
-                                postList.add(prevIndex + 1, post)
-                                findPet_rv_list.adapter?.notifyItemInserted(prevIndex + 1)
+        try {
+            FirebaseDatabase.getInstance().getReference(mode!!)
+                .orderByChild("writeTime").addChildEventListener(object : ChildEventListener {
+                    override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                        snapshot?.let { snapshot ->
+                            val post = snapshot.getValue(PetPost::class.java)
+                            post?.let {
+                                if (previousChildName == null) {
+                                    postList.add(it)
+                                    findPet_rv_list.adapter?.notifyItemInserted(postList.size - 1)
+                                } else {
+                                    val prevIndex =
+                                        postList.map { it.postId }.indexOf(previousChildName)
+                                    postList.add(prevIndex + 1, post)
+                                    findPet_rv_list.adapter?.notifyItemInserted(prevIndex + 1)
+                                }
                             }
-                        }
 //                        if (postList.size != 0) list_tv_noPost.text = ""
-                    }
-                }
-
-                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                    snapshot?.let { snapshot ->
-                        val post = snapshot.getValue(PetPost::class.java)
-                        post?.let {
-                            val prevIndex = postList.map { it.postId }.indexOf(previousChildName)
-                            postList[prevIndex + 1] = post
-                            findPet_rv_list.adapter?.notifyItemChanged(prevIndex + 1)
                         }
                     }
-                }
 
-                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                    snapshot?.let {
-                        val post = snapshot.getValue(PetPost::class.java)
-                        post?.let { post ->
-                            val existIndex = postList.map { it.postId }.indexOf(post.postId)
-                            postList.removeAt(existIndex)
-                            findPet_rv_list.adapter?.notifyItemRemoved(existIndex)
-                            if (previousChildName == null) {
-                                postList.add(post)
-                                findPet_rv_list.adapter?.notifyItemChanged(postList.size - 1)
-                            } else {
-                                val prevIndex = postList.map { it.postId }.indexOf(previousChildName)
-                                postList.add(prevIndex + 1, post)
+                    override fun onChildChanged(
+                        snapshot: DataSnapshot,
+                        previousChildName: String?
+                    ) {
+                        snapshot?.let { snapshot ->
+                            val post = snapshot.getValue(PetPost::class.java)
+                            post?.let {
+                                val prevIndex =
+                                    postList.map { it.postId }.indexOf(previousChildName)
+                                postList[prevIndex + 1] = post
                                 findPet_rv_list.adapter?.notifyItemChanged(prevIndex + 1)
                             }
                         }
                     }
-                }
 
-                override fun onChildRemoved(snapshot: DataSnapshot) {
-                    snapshot?.let {
-                        val post = snapshot.getValue(PetPost::class.java)
-                        post?.let { post ->
-                            val existIndex = postList.map { it.postId }.indexOf(post.postId)
-                            postList.removeAt(existIndex)
-                            findPet_rv_list.adapter?.notifyItemRemoved(existIndex)
+                    override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                        snapshot?.let {
+                            val post = snapshot.getValue(PetPost::class.java)
+                            post?.let { post ->
+                                val existIndex = postList.map { it.postId }.indexOf(post.postId)
+                                postList.removeAt(existIndex)
+                                findPet_rv_list.adapter?.notifyItemRemoved(existIndex)
+                                if (previousChildName == null) {
+                                    postList.add(post)
+                                    findPet_rv_list.adapter?.notifyItemChanged(postList.size - 1)
+                                } else {
+                                    val prevIndex =
+                                        postList.map { it.postId }.indexOf(previousChildName)
+                                    postList.add(prevIndex + 1, post)
+                                    findPet_rv_list.adapter?.notifyItemChanged(prevIndex + 1)
+                                }
+                            }
                         }
-//                        if (postList.size != 0) list_tv_noPost.text = ""
                     }
-                }
 
-                override fun onCancelled(error: DatabaseError) {
-                    error?.toException()?.printStackTrace()
-                }
-            })
+                    override fun onChildRemoved(snapshot: DataSnapshot) {
+                        snapshot?.let {
+                            val post = snapshot.getValue(PetPost::class.java)
+                            post?.let { post ->
+                                val existIndex = postList.map { it.postId }.indexOf(post.postId)
+                                postList.removeAt(existIndex)
+                                findPet_rv_list.adapter?.notifyItemRemoved(existIndex)
+                            }
+//                        if (postList.size != 0) list_tv_noPost.text = ""
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        error?.toException()?.printStackTrace()
+                    }
+                })
 
 //        if (postList.size == 0) list_tv_noPost.text = "게시물이 없습니다."
 //        else list_tv_noPost.text = ""
+        } catch (e: Exception) {
+            Log.d("Load Error", e.toString())
+        }
     }
 
     override fun finish() {

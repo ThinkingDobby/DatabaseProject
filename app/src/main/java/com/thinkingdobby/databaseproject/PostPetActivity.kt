@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.DatePicker
 import android.widget.Toast
@@ -26,6 +27,7 @@ import com.thinkingdobby.databaseproject.data.PetPost
 import com.thinkingdobby.databaseproject.functions.getMyId
 import kotlinx.android.synthetic.main.activity_post_pet.*
 import kotlinx.android.synthetic.main.activity_post_pet.findPet_tv_title
+import java.lang.IllegalArgumentException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -99,11 +101,15 @@ class PostPetActivity : AppCompatActivity() {
             storageRef.downloadUrl.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Glide 이용하여 이미지뷰에 로딩
-                    Glide.with(this@PostPetActivity)
-                        .load(task.result)
-                        .placeholder(circularProgressDrawable)
-                        .transform(CenterCrop())
-                        .into(postPet_iv_pet)
+                    try {
+                        Glide.with(this@PostPetActivity)
+                            .load(task.result)
+                            .placeholder(circularProgressDrawable)
+                            .transform(CenterCrop())
+                            .into(postPet_iv_pet)
+                    } catch (e: IllegalArgumentException) {
+                        Log.d("Glide Error", "from PostPetActivity")
+                    }
                 } else {
                     // URL을 가져오지 못하면 토스트 메세지
                     Toast.makeText(

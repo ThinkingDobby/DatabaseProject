@@ -17,6 +17,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.thinkingdobby.databaseproject.R
 import com.thinkingdobby.databaseproject.data.PetPost
 import kotlinx.android.synthetic.main.pet_card.view.*
+import java.lang.IllegalArgumentException
 
 
 class PetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -61,11 +62,15 @@ class PetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         storageRef.downloadUrl.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 // Glide 이용하여 이미지뷰에 로딩
-                Glide.with(context)
-                    .load(task.result)
-                    .placeholder(circularProgressDrawable)
-                    .transform(CenterCrop())
-                    .into(pet_iv_background)
+                try {
+                    Glide.with(context)
+                        .load(task.result)
+                        .placeholder(circularProgressDrawable)
+                        .transform(CenterCrop())
+                        .into(pet_iv_background)
+                } catch (e: IllegalArgumentException) {
+                    Log.d("Glide Error", "from PetViewHolder")
+                }
             } else {
                 // URL을 가져오지 못하면 토스트 메세지
                 Toast.makeText(
