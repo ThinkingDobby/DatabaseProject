@@ -42,4 +42,9 @@ class HomeActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
         }
     }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+    }
 }
