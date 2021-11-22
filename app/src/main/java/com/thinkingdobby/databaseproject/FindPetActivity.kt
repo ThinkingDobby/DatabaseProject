@@ -78,10 +78,10 @@ class FindPetActivity : AppCompatActivity() {
         }
 
         findPet_btn_toHome.setOnClickListener {
-//            val intent = Intent(this, HomeActivity::class.java)
-//            startActivity(intent)
-//            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
-//            finish()
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+            finish()
         }
 
 
