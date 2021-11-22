@@ -192,7 +192,9 @@ class PostPetActivity : AppCompatActivity() {
 
             // Firebase Storage Upload
             if (imageChanged) imageUpload(post.postId)
+            else if (edit == "no") imageUpload(post.postId)
             else {
+                Log.d("test", "test")
                 Toast.makeText(this@PostPetActivity, "업로드 되었습니다.", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, FindPetActivity::class.java)
                 intent.putExtra("mode", mode)
