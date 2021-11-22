@@ -112,7 +112,6 @@ class DetailActivity : AppCompatActivity() {
             intent.putExtra("edit", "yes")
             startActivity(intent)
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
-            finish()
         }
 
         detail_btn_delete.setOnClickListener {

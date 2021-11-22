@@ -194,6 +194,10 @@ class PostPetActivity : AppCompatActivity() {
             if (imageChanged) imageUpload(post.postId)
             else {
                 Toast.makeText(this@PostPetActivity, "업로드 되었습니다.", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, FindPetActivity::class.java)
+                intent.putExtra("mode", mode)
+                startActivity(intent)
+                overridePendingTransition(R.anim.fadein, R.anim.fadeout)
                 finish()
             }
         }
@@ -223,6 +227,10 @@ class PostPetActivity : AppCompatActivity() {
 
         storageRef.putFile(uriPhoto!!).addOnSuccessListener {
             Toast.makeText(this@PostPetActivity, "업로드 되었습니다.", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, FindPetActivity::class.java)
+            intent.putExtra("mode", mode)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
             finish()
         }
     }
