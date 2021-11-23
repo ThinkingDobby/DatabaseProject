@@ -4,6 +4,245 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/basic_background"
     tools:context=".MyPetDetailActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingBottom="27dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/myPetDetail_tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="상세정보"
+                android:textSize="25sp"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/noto_bold"
+                android:includeFontPadding="false"
+                android:layout_marginTop="60dp"
+                android:layout_marginStart="12dp"
+                app:layout_constraintStart_toEndOf="@id/myPetDetail_btn_back"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/myPetDetail_btn_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="24dp"
+                app:layout_constraintTop_toTopOf="@id/myPetDetail_tv_title"
+                app:layout_constraintBottom_toBottomOf="@id/myPetDetail_tv_title"
+                app:layout_constraintStart_toStartOf="parent"
+                android:src="@drawable/button_back"/>
+
+            <ImageView
+                android:id="@+id/myPetDetail_btn_delete"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintTop_toTopOf="@id/myPetDetail_tv_title"
+                app:layout_constraintBottom_toBottomOf="@id/myPetDetail_tv_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/button_delete"/>
+
+            <ImageView
+                android:id="@+id/myPetDetail_btn_edit"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintTop_toTopOf="@id/myPetDetail_tv_title"
+                app:layout_constraintBottom_toBottomOf="@id/myPetDetail_tv_title"
+                app:layout_constraintEnd_toStartOf="@id/myPetDetail_btn_delete"
+                android:src="@drawable/button_edit"/>
+
+            <ImageView
+                android:id="@+id/myPetDetail_iv_pet"
+                android:layout_width="244dp"
+                android:layout_height="324dp"
+                android:layout_marginTop="31dp"
+                app:layout_constraintTop_toBottomOf="@id/myPetDetail_tv_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:scaleType="centerCrop"
+                android:background="@color/colorWhite"/>
+
+            <TextView
+                android:id="@+id/myPetDetail_tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이름"
+                android:textSize="16sp"
+                android:fontFamily="@font/noto_bold"
+                android:textColor="@color/colorWhite"
+                android:includeFontPadding="false"
+                android:layout_marginTop="44dp"
+                app:layout_constraintTop_toBottomOf="@id/myPetDetail_iv_pet"
+                app:layout_constraintStart_toStartOf="@id/myPetDetail_iv_pet"/>
+
+            <ImageView
+                android:layout_width="1dp"
+                android:layout_height="14dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintTop_toTopOf="@id/myPetDetail_tv_name"
+                app:layout_constraintBottom_toBottomOf="@id/myPetDetail_tv_name"
+                app:layout_constraintEnd_toStartOf="@id/myPetDetail_tv_name"
+                android:src="@drawable/post_line_vertical"/>
+
+            <TextView
+                android:id="@+id/myPetDetail_et_name"
+                android:layout_width="244dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="이름"
+                android:textColorHint="@color/colorGray"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/noto_regular"
+                android:textSize="14sp"
+                android:includeFontPadding="false"
+                android:background="@android:color/transparent"
+                app:layout_constraintStart_toStartOf="@id/myPetDetail_tv_name"
+                app:layout_constraintTop_toBottomOf="@id/myPetDetail_tv_name"/>
+
+            <TextView
+                android:id="@+id/myPetDetail_tv_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="특징"
+                android:textSize="16sp"
+                android:fontFamily="@font/noto_bold"
+                android:textColor="@color/colorWhite"
+                android:includeFontPadding="false"
+                android:layout_marginTop="31dp"
+                app:layout_constraintTop_toBottomOf="@id/myPetDetail_et_name"
+                app:layout_constraintStart_toStartOf="@id/myPetDetail_iv_pet"/>
+
+            <ImageView
+                android:layout_width="1dp"
+                android:layout_height="14dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintTop_toTopOf="@id/myPetDetail_tv_info"
+                app:layout_constraintBottom_toBottomOf="@id/myPetDetail_tv_info"
+                app:layout_constraintEnd_toStartOf="@id/myPetDetail_tv_info"
+                android:src="@drawable/post_line_vertical"/>
+
+            <TextView
+                android:id="@+id/myPetDetail_et_info"
+                android:layout_width="244dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="특징"
+                android:textColorHint="@color/colorGray"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/noto_regular"
+                android:textSize="14sp"
+                android:includeFontPadding="false"
+                app:layout_constraintStart_toStartOf="@id/myPetDetail_tv_name"
+                app:layout_constraintTop_toBottomOf="@id/myPetDetail_tv_info"/>
+
+            <TextView
+                android:id="@+id/myPetDetail_tv_breed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="품종"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                android:fontFamily="@font/noto_medium"
+                android:includeFontPadding="false"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/myPetDetail_et_info"
+                app:layout_constraintStart_toStartOf="@id/myPetDetail_iv_pet"/>
+
+            <TextView
+                android:id="@+id/myPetDetail_et_breed"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="품종"
+                android:textSize="14sp"
+                android:fontFamily="@font/noto_regular"
+                android:textColor="@color/colorWhite"
+                android:includeFontPadding="false"
+                android:background="@android:color/transparent"
+                app:layout_constraintStart_toEndOf="@id/myPetDetail_tv_breed"
+                app:layout_constraintBottom_toBottomOf="@id/myPetDetail_tv_breed"/>
+
+
+            <TextView
+                android:id="@+id/myPetDetail_tv_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="성별"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                android:fontFamily="@font/noto_medium"
+                android:includeFontPadding="false"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/myPetDetail_et_breed"
+                app:layout_constraintStart_toStartOf="@id/myPetDetail_iv_pet"/>
+
+            <TextView
+                android:id="@+id/myPetDetail_et_sex"
+                android:layout_width="14dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="남"
+                android:enabled="false"
+                android:textSize="14sp"
+                android:fontFamily="@font/noto_regular"
+                android:textColor="@color/colorWhite"
+                android:includeFontPadding="false"
+                android:background="@android:color/transparent"
+                app:layout_constraintStart_toEndOf="@id/myPetDetail_tv_breed"
+                app:layout_constraintBottom_toBottomOf="@id/myPetDetail_tv_sex"/>
+
+            <TextView
+                android:id="@+id/myPetDetail_tv_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="체장"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                android:fontFamily="@font/noto_medium"
+                android:includeFontPadding="false"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/myPetDetail_et_sex"
+                app:layout_constraintStart_toStartOf="@id/myPetDetail_iv_pet"/>
+
+            <TextView
+                android:id="@+id/myPetDetail_et_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textSize="14sp"
+                android:text="체장"
+                android:inputType="text"
+                android:fontFamily="@font/noto_regular"
+                android:textColor="@color/colorWhite"
+                android:includeFontPadding="false"
+                android:background="@android:color/transparent"
+                app:layout_constraintStart_toEndOf="@id/myPetDetail_tv_breed"
+                app:layout_constraintBottom_toBottomOf="@id/myPetDetail_tv_length"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="cm"
+                android:fontFamily="@font/noto_regular"
+                android:textColor="@color/colorWhite"
+                android:textSize="13sp"
+                android:includeFontPadding="false"
+                app:layout_constraintStart_toEndOf="@id/myPetDetail_et_length"
+                app:layout_constraintBottom_toBottomOf="@id/myPetDetail_et_length"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
