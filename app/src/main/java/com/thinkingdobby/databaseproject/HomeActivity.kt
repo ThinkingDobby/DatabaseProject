@@ -29,12 +29,11 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        val intent = Intent(this, FindPetActivity::class.java)
-
         home_btn_toFindPet.setOnClickListener {
             finish()
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
 
+            val intent = Intent(this, FindPetActivity::class.java)
             intent.putExtra("mode", "FindPet")
             startActivity(intent)
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
@@ -44,7 +43,14 @@ class HomeActivity : AppCompatActivity() {
             finish()
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
 
+            val intent = Intent(this, FindPetActivity::class.java)
             intent.putExtra("mode", "FindPerson")
+            startActivity(intent)
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+        }
+
+        home_btn_add.setOnClickListener {
+            val intent = Intent(this, PostMyPetActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
         }

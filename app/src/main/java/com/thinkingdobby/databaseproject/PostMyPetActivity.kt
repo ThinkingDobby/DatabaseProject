@@ -26,9 +26,6 @@ class PostMyPetActivity : AppCompatActivity() {
     private var sex = "남"
     private var pickImageFromAlbum = 0
     private var uriPhoto: Uri? = Uri.parse("android.resource://com.thinkingdobby.databaseproject/drawable/card_background_sample")
-    private var ei = ExifInterface(createCopyAndReturnRealPath(applicationContext, uriPhoto!!)!!)
-    private var orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
-        ExifInterface.ORIENTATION_UNDEFINED)
 
     private var myPetDB: MyPetDB? = null
 
@@ -48,6 +45,12 @@ class PostMyPetActivity : AppCompatActivity() {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                 statusBarColor = Color.TRANSPARENT
             }
+        }
+
+        val edit = intent.getStringExtra("edit") ?: "no"
+        if (edit == "yes") {
+        } else {
+            postMyPet_iv_pet.setImageResource(R.drawable.card_background_sample)
         }
 
         postMyPet_btn_back.setOnClickListener {
@@ -89,6 +92,11 @@ class PostMyPetActivity : AppCompatActivity() {
                 newMyPet.petInfo = postMyPet_et_info.text.toString()
 
                 newMyPet.petImage = getByteArrayFromDrawable(uriPhoto!!)
+
+                val ei = ExifInterface(createCopyAndReturnRealPath(applicationContext, uriPhoto!!)!!)
+                val orientation = ei.getAttributeInt(
+                    ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_UNDEFINED)
                 newMyPet.imgOt = orientation
 
                 myPetDB?.myPetDao()?.insert(newMyPet)
@@ -111,10 +119,6 @@ class PostMyPetActivity : AppCompatActivity() {
         if (requestCode == pickImageFromAlbum) {
             if (resultCode == Activity.RESULT_OK) {
                 uriPhoto = data?.data
-                ei = ExifInterface(createCopyAndReturnRealPath(applicationContext, uriPhoto!!)!!)
-                orientation = ei.getAttributeInt(
-                    ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_UNDEFINED)
                 postMyPet_iv_pet.setImageURI(uriPhoto)
             }
         }
