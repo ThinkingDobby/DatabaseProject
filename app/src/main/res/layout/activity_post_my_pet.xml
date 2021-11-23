@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/basic_background"
-    tools:context=".PostPetActivity">
+    tools:context=".PostMyPetActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,74 +21,74 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/postPet_tv_title"
+                android:id="@+id/postMyPet_tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="포스트 추가"
+                android:text="동물 추가"
                 android:textSize="25sp"
                 android:textColor="@color/colorWhite"
                 android:fontFamily="@font/noto_bold"
                 android:includeFontPadding="false"
                 android:layout_marginTop="60dp"
                 android:layout_marginStart="12dp"
-                app:layout_constraintStart_toEndOf="@id/postPet_btn_back"
+                app:layout_constraintStart_toEndOf="@id/postMyPet_btn_back"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/postPet_btn_back"
+                android:id="@+id/postMyPet_btn_back"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="24dp"
-                app:layout_constraintTop_toTopOf="@id/postPet_tv_title"
-                app:layout_constraintBottom_toBottomOf="@id/postPet_tv_title"
+                app:layout_constraintTop_toTopOf="@id/postMyPet_tv_title"
+                app:layout_constraintBottom_toBottomOf="@id/postMyPet_tv_title"
                 app:layout_constraintStart_toStartOf="parent"
                 android:src="@drawable/button_back"/>
 
             <ImageView
-                android:id="@+id/postPet_iv_pet"
+                android:id="@+id/postMyPet_iv_pet"
                 android:layout_width="220dp"
                 android:layout_height="292dp"
                 android:layout_marginTop="31dp"
                 android:layout_marginEnd="26dp"
-                app:layout_constraintTop_toBottomOf="@id/postPet_tv_title"
+                app:layout_constraintTop_toBottomOf="@id/postMyPet_tv_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:scaleType="centerCrop"
                 android:background="@color/colorWhite"/>
 
             <ImageView
-                android:id="@+id/postPet_btn_gallery"
+                android:id="@+id/postMyPet_btn_gallery"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_marginStart="8dp"
-                app:layout_constraintStart_toEndOf="@id/postPet_iv_pet"
-                app:layout_constraintBottom_toBottomOf="@id/postPet_iv_pet"
+                app:layout_constraintStart_toEndOf="@id/postMyPet_iv_pet"
+                app:layout_constraintBottom_toBottomOf="@id/postMyPet_iv_pet"
                 android:src="@drawable/post_button_gallery"/>
 
             <TextView
-            android:id="@+id/postPet_tv_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="실종장소"
-            android:textSize="16sp"
-            android:fontFamily="@font/noto_bold"
-            android:textColor="@color/colorWhite"
-            android:includeFontPadding="false"
-            android:layout_marginTop="44dp"
-            app:layout_constraintTop_toBottomOf="@id/postPet_iv_pet"
-            app:layout_constraintStart_toStartOf="@id/postPet_iv_pet"/>
+                android:id="@+id/postMyPet_tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이름"
+                android:textSize="16sp"
+                android:fontFamily="@font/noto_bold"
+                android:textColor="@color/colorWhite"
+                android:includeFontPadding="false"
+                android:layout_marginTop="44dp"
+                app:layout_constraintTop_toBottomOf="@id/postMyPet_iv_pet"
+                app:layout_constraintStart_toStartOf="@id/postMyPet_iv_pet"/>
 
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="14dp"
                 android:layout_marginEnd="16dp"
-                app:layout_constraintTop_toTopOf="@id/postPet_tv_location"
-                app:layout_constraintBottom_toBottomOf="@id/postPet_tv_location"
-                app:layout_constraintEnd_toStartOf="@id/postPet_tv_location"
+                app:layout_constraintTop_toTopOf="@id/postMyPet_tv_name"
+                app:layout_constraintBottom_toBottomOf="@id/postMyPet_tv_name"
+                app:layout_constraintEnd_toStartOf="@id/postMyPet_tv_name"
                 android:src="@drawable/post_line_vertical"/>
 
             <EditText
-                android:id="@+id/postPet_et_location"
+                android:id="@+id/postMyPet_et_name"
                 android:layout_width="244dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -100,90 +100,19 @@
                 android:textSize="14sp"
                 android:includeFontPadding="false"
                 android:background="@android:color/transparent"
-                app:layout_constraintStart_toStartOf="@id/postPet_tv_location"
-                app:layout_constraintTop_toBottomOf="@id/postPet_tv_location"/>
+                app:layout_constraintStart_toStartOf="@id/postMyPet_tv_name"
+                app:layout_constraintTop_toBottomOf="@id/postMyPet_tv_name"/>
 
             <ImageView
                 android:layout_width="244dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="1dp"
-                app:layout_constraintTop_toBottomOf="@id/postPet_et_location"
-                app:layout_constraintStart_toStartOf="@id/postPet_et_location"
+                app:layout_constraintTop_toBottomOf="@id/postMyPet_et_name"
+                app:layout_constraintStart_toStartOf="@id/postMyPet_et_name"
                 android:src="@drawable/post_line_horizontal"/>
 
             <TextView
-                android:id="@+id/postPet_tv_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="실종일시"
-                android:textSize="16sp"
-                android:fontFamily="@font/noto_bold"
-                android:textColor="@color/colorWhite"
-                android:includeFontPadding="false"
-                android:layout_marginTop="31dp"
-                app:layout_constraintTop_toBottomOf="@id/postPet_et_location"
-                app:layout_constraintStart_toStartOf="@id/postPet_iv_pet"/>
-
-            <ImageView
-                android:layout_width="1dp"
-                android:layout_height="14dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintTop_toTopOf="@id/postPet_tv_time"
-                app:layout_constraintBottom_toBottomOf="@id/postPet_tv_time"
-                app:layout_constraintEnd_toStartOf="@id/postPet_tv_time"
-                android:src="@drawable/post_line_vertical"/>
-
-            <TextView
-                android:id="@+id/postPet_et_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:inputType="text"
-                android:textColor="@color/colorWhite"
-                android:fontFamily="@font/noto_regular"
-                android:textSize="14sp"
-                android:text="2021년 11월 15일"
-                android:enabled="false"
-                android:includeFontPadding="false"
-                android:background="@android:color/transparent"
-                app:layout_constraintStart_toStartOf="@id/postPet_tv_time"
-                app:layout_constraintTop_toBottomOf="@id/postPet_tv_time"/>
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="1dp"
-                android:scaleType="matrix"
-                app:layout_constraintTop_toBottomOf="@id/postPet_et_time"
-                app:layout_constraintStart_toStartOf="@id/postPet_et_time"
-                app:layout_constraintEnd_toEndOf="@id/postPet_et_time"
-                android:src="@drawable/post_line_horizontal"/>
-
-            <ImageView
-                android:id="@+id/postPet_btn_selectTime"
-                android:layout_width="55dp"
-                android:layout_height="23dp"
-                android:layout_marginStart="20dp"
-                app:layout_constraintTop_toTopOf="@id/postPet_et_time"
-                app:layout_constraintBottom_toBottomOf="@id/postPet_et_time"
-                app:layout_constraintStart_toEndOf="@id/postPet_et_time"
-                android:src="@drawable/post_button_select"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="선택"
-                android:textColor="@color/colorWhite"
-                android:fontFamily="@font/noto_medium"
-                android:textSize="10sp"
-                android:includeFontPadding="false"
-                app:layout_constraintTop_toTopOf="@id/postPet_btn_selectTime"
-                app:layout_constraintBottom_toBottomOf="@id/postPet_btn_selectTime"
-                app:layout_constraintEnd_toEndOf="@id/postPet_btn_selectTime"
-                app:layout_constraintStart_toStartOf="@id/postPet_btn_selectTime"/>
-
-            <TextView
-                android:id="@+id/postPet_tv_info"
+                android:id="@+id/postMyPet_tv_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="특징"
@@ -192,20 +121,20 @@
                 android:textColor="@color/colorWhite"
                 android:includeFontPadding="false"
                 android:layout_marginTop="31dp"
-                app:layout_constraintTop_toBottomOf="@id/postPet_et_time"
-                app:layout_constraintStart_toStartOf="@id/postPet_iv_pet"/>
+                app:layout_constraintTop_toBottomOf="@id/postMyPet_et_name"
+                app:layout_constraintStart_toStartOf="@id/postMyPet_iv_pet"/>
 
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="14dp"
                 android:layout_marginEnd="16dp"
-                app:layout_constraintTop_toTopOf="@id/postPet_tv_info"
-                app:layout_constraintBottom_toBottomOf="@id/postPet_tv_info"
-                app:layout_constraintEnd_toStartOf="@id/postPet_tv_info"
+                app:layout_constraintTop_toTopOf="@id/postMyPet_tv_info"
+                app:layout_constraintBottom_toBottomOf="@id/postMyPet_tv_info"
+                app:layout_constraintEnd_toStartOf="@id/postMyPet_tv_info"
                 android:src="@drawable/post_line_vertical"/>
 
             <EditText
-                android:id="@+id/postPet_et_info"
+                android:id="@+id/postMyPet_et_info"
                 android:layout_width="244dp"
                 android:layout_height="39dp"
                 android:inputType="textMultiLine"
@@ -221,56 +150,19 @@
                 android:textSize="14sp"
                 android:includeFontPadding="false"
                 android:background="@drawable/post_et_background"
-                app:layout_constraintStart_toStartOf="@id/postPet_tv_location"
-                app:layout_constraintTop_toBottomOf="@id/postPet_tv_info"/>
+                app:layout_constraintStart_toStartOf="@id/postMyPet_tv_name"
+                app:layout_constraintTop_toBottomOf="@id/postMyPet_tv_info"/>
 
             <ImageView
                 android:layout_width="244dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="1dp"
-                app:layout_constraintTop_toBottomOf="@id/postPet_et_info"
-                app:layout_constraintStart_toStartOf="@id/postPet_et_info"
+                app:layout_constraintTop_toBottomOf="@id/postMyPet_et_info"
+                app:layout_constraintStart_toStartOf="@id/postMyPet_et_info"
                 android:src="@drawable/post_line_horizontal"/>
 
             <TextView
-                android:id="@+id/postPet_tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="이름"
-                android:textColor="@color/colorWhite"
-                android:textSize="15sp"
-                android:fontFamily="@font/noto_medium"
-                android:includeFontPadding="false"
-                android:layout_marginTop="22dp"
-                app:layout_constraintTop_toBottomOf="@id/postPet_et_info"
-                app:layout_constraintStart_toStartOf="@id/postPet_iv_pet"/>
-            
-            <EditText
-                android:id="@+id/postPet_et_name"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:inputType="text"
-                android:textSize="14sp"
-                android:hint="이름을 입력하세요."
-                android:textColorHint="@color/colorGray"
-                android:fontFamily="@font/noto_regular"
-                android:textColor="@color/colorWhite"
-                android:includeFontPadding="false"
-                android:background="@android:color/transparent"
-                app:layout_constraintStart_toEndOf="@id/postPet_tv_name"
-                app:layout_constraintBottom_toBottomOf="@id/postPet_tv_name"/>
-            
-            <ImageView
-                android:layout_width="120dp"
-                android:layout_height="1dp"
-                android:scaleType="matrix"
-                app:layout_constraintStart_toStartOf="@id/postPet_et_name"
-                app:layout_constraintTop_toBottomOf="@id/postPet_et_name"
-                android:src="@drawable/post_line_horizontal"/>
-
-            <TextView
-                android:id="@+id/postPet_tv_breed"
+                android:id="@+id/postMyPet_tv_breed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="품종"
@@ -278,12 +170,12 @@
                 android:textSize="15sp"
                 android:fontFamily="@font/noto_medium"
                 android:includeFontPadding="false"
-                android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/postPet_et_name"
-                app:layout_constraintStart_toStartOf="@id/postPet_iv_pet"/>
+                android:layout_marginTop="22dp"
+                app:layout_constraintTop_toBottomOf="@id/postMyPet_et_info"
+                app:layout_constraintStart_toStartOf="@id/postMyPet_iv_pet"/>
 
             <EditText
-                android:id="@+id/postPet_et_breed"
+                android:id="@+id/postMyPet_et_breed"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -295,19 +187,19 @@
                 android:textColor="@color/colorWhite"
                 android:includeFontPadding="false"
                 android:background="@android:color/transparent"
-                app:layout_constraintStart_toEndOf="@id/postPet_tv_name"
-                app:layout_constraintBottom_toBottomOf="@id/postPet_tv_breed"/>
+                app:layout_constraintStart_toEndOf="@id/postMyPet_tv_breed"
+                app:layout_constraintBottom_toBottomOf="@id/postMyPet_tv_breed"/>
 
             <ImageView
                 android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:scaleType="matrix"
-                app:layout_constraintStart_toStartOf="@id/postPet_et_name"
-                app:layout_constraintTop_toBottomOf="@id/postPet_et_breed"
+                app:layout_constraintStart_toStartOf="@id/postMyPet_et_breed"
+                app:layout_constraintTop_toBottomOf="@id/postMyPet_et_breed"
                 android:src="@drawable/post_line_horizontal"/>
 
             <TextView
-                android:id="@+id/postPet_tv_sex"
+                android:id="@+id/postMyPet_tv_sex"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="성별"
@@ -316,11 +208,11 @@
                 android:fontFamily="@font/noto_medium"
                 android:includeFontPadding="false"
                 android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/postPet_et_breed"
-                app:layout_constraintStart_toStartOf="@id/postPet_iv_pet"/>
+                app:layout_constraintTop_toBottomOf="@id/postMyPet_et_breed"
+                app:layout_constraintStart_toStartOf="@id/postMyPet_iv_pet"/>
 
             <TextView
-                android:id="@+id/postPet_et_sex"
+                android:id="@+id/postMyPet_et_sex"
                 android:layout_width="14dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -331,16 +223,16 @@
                 android:textColor="@color/colorWhite"
                 android:includeFontPadding="false"
                 android:background="@android:color/transparent"
-                app:layout_constraintStart_toEndOf="@id/postPet_tv_name"
-                app:layout_constraintBottom_toBottomOf="@id/postPet_tv_sex"/>
+                app:layout_constraintStart_toEndOf="@id/postMyPet_tv_breed"
+                app:layout_constraintBottom_toBottomOf="@id/postMyPet_tv_sex"/>
 
             <ImageView
-                android:id="@+id/postPet_btn_selectSex"
+                android:id="@+id/postMyPet_btn_selectSex"
                 android:layout_width="55dp"
                 android:layout_height="23dp"
-                app:layout_constraintTop_toTopOf="@id/postPet_et_sex"
-                app:layout_constraintBottom_toBottomOf="@id/postPet_et_sex"
-                app:layout_constraintEnd_toEndOf="@id/postPet_et_breed"
+                app:layout_constraintTop_toTopOf="@id/postMyPet_et_sex"
+                app:layout_constraintBottom_toBottomOf="@id/postMyPet_et_sex"
+                app:layout_constraintEnd_toEndOf="@id/postMyPet_et_breed"
                 android:src="@drawable/post_button_select"/>
 
             <TextView
@@ -351,10 +243,10 @@
                 android:fontFamily="@font/noto_medium"
                 android:textSize="10sp"
                 android:includeFontPadding="false"
-                app:layout_constraintTop_toTopOf="@id/postPet_btn_selectSex"
-                app:layout_constraintBottom_toBottomOf="@id/postPet_btn_selectSex"
-                app:layout_constraintEnd_toEndOf="@id/postPet_btn_selectSex"
-                app:layout_constraintStart_toStartOf="@id/postPet_btn_selectSex"/>
+                app:layout_constraintTop_toTopOf="@id/postMyPet_btn_selectSex"
+                app:layout_constraintBottom_toBottomOf="@id/postMyPet_btn_selectSex"
+                app:layout_constraintEnd_toEndOf="@id/postMyPet_btn_selectSex"
+                app:layout_constraintStart_toStartOf="@id/postMyPet_btn_selectSex"/>
 
 
 
@@ -362,12 +254,12 @@
                 android:layout_width="14dp"
                 android:layout_height="1dp"
                 android:scaleType="matrix"
-                app:layout_constraintStart_toStartOf="@id/postPet_et_name"
-                app:layout_constraintTop_toBottomOf="@id/postPet_et_sex"
+                app:layout_constraintStart_toStartOf="@id/postMyPet_et_breed"
+                app:layout_constraintTop_toBottomOf="@id/postMyPet_et_sex"
                 android:src="@drawable/post_line_horizontal"/>
 
             <TextView
-                android:id="@+id/postPet_tv_length"
+                android:id="@+id/postMyPet_tv_length"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="체장"
@@ -376,11 +268,11 @@
                 android:fontFamily="@font/noto_medium"
                 android:includeFontPadding="false"
                 android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/postPet_et_sex"
-                app:layout_constraintStart_toStartOf="@id/postPet_iv_pet"/>
+                app:layout_constraintTop_toBottomOf="@id/postMyPet_et_sex"
+                app:layout_constraintStart_toStartOf="@id/postMyPet_iv_pet"/>
 
             <EditText
-                android:id="@+id/postPet_et_length"
+                android:id="@+id/postMyPet_et_length"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -392,8 +284,8 @@
                 android:textColor="@color/colorWhite"
                 android:includeFontPadding="false"
                 android:background="@android:color/transparent"
-                app:layout_constraintStart_toEndOf="@id/postPet_tv_name"
-                app:layout_constraintBottom_toBottomOf="@id/postPet_tv_length"/>
+                app:layout_constraintStart_toEndOf="@id/postMyPet_tv_breed"
+                app:layout_constraintBottom_toBottomOf="@id/postMyPet_tv_length"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -403,20 +295,20 @@
                 android:textColor="@color/colorWhite"
                 android:textSize="13sp"
                 android:includeFontPadding="false"
-                app:layout_constraintStart_toEndOf="@id/postPet_et_length"
-                app:layout_constraintBottom_toBottomOf="@id/postPet_et_length"/>
+                app:layout_constraintStart_toEndOf="@id/postMyPet_et_length"
+                app:layout_constraintBottom_toBottomOf="@id/postMyPet_et_length"/>
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:scaleType="matrix"
-                app:layout_constraintStart_toStartOf="@id/postPet_et_name"
-                app:layout_constraintEnd_toEndOf="@id/postPet_et_length"
-                app:layout_constraintTop_toBottomOf="@id/postPet_et_length"
+                app:layout_constraintStart_toStartOf="@id/postMyPet_et_breed"
+                app:layout_constraintEnd_toEndOf="@id/postMyPet_et_length"
+                app:layout_constraintTop_toBottomOf="@id/postMyPet_et_length"
                 android:src="@drawable/post_line_horizontal"/>
 
             <TextView
-                android:id="@+id/postPet_tv_stat"
+                android:id="@+id/postMyPet_tv_stat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="상태"
@@ -425,20 +317,20 @@
                 android:textColor="@color/colorWhite"
                 android:includeFontPadding="false"
                 android:layout_marginTop="31dp"
-                app:layout_constraintTop_toBottomOf="@id/postPet_tv_length"
-                app:layout_constraintStart_toStartOf="@id/postPet_iv_pet"/>
+                app:layout_constraintTop_toBottomOf="@id/postMyPet_tv_length"
+                app:layout_constraintStart_toStartOf="@id/postMyPet_iv_pet"/>
 
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="14dp"
                 android:layout_marginEnd="16dp"
-                app:layout_constraintTop_toTopOf="@id/postPet_tv_stat"
-                app:layout_constraintBottom_toBottomOf="@id/postPet_tv_stat"
-                app:layout_constraintEnd_toStartOf="@id/postPet_tv_info"
+                app:layout_constraintTop_toTopOf="@id/postMyPet_tv_stat"
+                app:layout_constraintBottom_toBottomOf="@id/postMyPet_tv_stat"
+                app:layout_constraintEnd_toStartOf="@id/postMyPet_tv_info"
                 android:src="@drawable/post_line_vertical"/>
 
             <EditText
-                android:id="@+id/postPet_et_stat"
+                android:id="@+id/postMyPet_et_stat"
                 android:layout_width="244dp"
                 android:layout_height="39dp"
                 android:inputType="textMultiLine"
@@ -454,36 +346,36 @@
                 android:textSize="14sp"
                 android:includeFontPadding="false"
                 android:background="@drawable/post_et_background"
-                app:layout_constraintStart_toStartOf="@id/postPet_tv_location"
-                app:layout_constraintTop_toBottomOf="@id/postPet_tv_stat"/>
+                app:layout_constraintStart_toStartOf="@id/postMyPet_tv_name"
+                app:layout_constraintTop_toBottomOf="@id/postMyPet_tv_stat"/>
 
             <ImageView
                 android:layout_width="244dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="1dp"
-                app:layout_constraintTop_toBottomOf="@id/postPet_et_stat"
-                app:layout_constraintStart_toStartOf="@id/postPet_et_stat"
+                app:layout_constraintTop_toBottomOf="@id/postMyPet_et_stat"
+                app:layout_constraintStart_toStartOf="@id/postMyPet_et_stat"
                 android:src="@drawable/post_line_horizontal"/>
-            
+
             <ImageView
-                android:id="@+id/postPet_btn_post"
+                android:id="@+id/postMyPet_btn_post"
                 android:layout_width="268dp"
                 android:layout_height="35dp"
                 android:layout_marginTop="48dp"
-                app:layout_constraintTop_toBottomOf="@id/postPet_et_stat"
+                app:layout_constraintTop_toBottomOf="@id/postMyPet_et_stat"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:src="@drawable/post_button_post"/>
 
             <TextView
-                android:id="@+id/postPet_tv_post"
+                android:id="@+id/postMyPet_tv_post"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/postPet_btn_post"
-                app:layout_constraintBottom_toBottomOf="@id/postPet_btn_post"
-                app:layout_constraintStart_toStartOf="@id/postPet_btn_post"
-                app:layout_constraintEnd_toEndOf="@id/postPet_btn_post"
-                android:text="포스트 추가"
+                app:layout_constraintTop_toTopOf="@id/postMyPet_btn_post"
+                app:layout_constraintBottom_toBottomOf="@id/postMyPet_btn_post"
+                app:layout_constraintStart_toStartOf="@id/postMyPet_btn_post"
+                app:layout_constraintEnd_toEndOf="@id/postMyPet_btn_post"
+                android:text="동물 추가"
                 android:textSize="13sp"
                 android:fontFamily="@font/noto_medium"
                 android:includeFontPadding="false"

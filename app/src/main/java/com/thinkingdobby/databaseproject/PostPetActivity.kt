@@ -26,7 +26,6 @@ import com.google.firebase.storage.FirebaseStorage
 import com.thinkingdobby.databaseproject.data.PetPost
 import com.thinkingdobby.databaseproject.functions.getMyId
 import kotlinx.android.synthetic.main.activity_post_pet.*
-import kotlinx.android.synthetic.main.activity_post_pet.findPet_tv_title
 import java.lang.IllegalArgumentException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -78,7 +77,7 @@ class PostPetActivity : AppCompatActivity() {
             val pet = bundle!!.getParcelable<PetPost>("selectedPet")!!
             postId = pet.postId
 
-            findPet_tv_title.text = "포스트 수정"
+            postPet_tv_title.text = "포스트 수정"
             postPet_tv_post.text = "포스트 수정"
 
             postPet_et_location.setText(pet.location)
