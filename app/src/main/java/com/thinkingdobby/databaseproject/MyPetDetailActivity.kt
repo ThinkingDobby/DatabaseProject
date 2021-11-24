@@ -6,8 +6,10 @@ import android.graphics.Color
 import android.media.ExifInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import com.bumptech.glide.Glide
 import com.thinkingdobby.databaseproject.data.MyPetDB
 import com.thinkingdobby.databaseproject.data.MyPetPost
 import com.thinkingdobby.databaseproject.functions.rotateImage
@@ -44,7 +46,7 @@ class MyPetDetailActivity : AppCompatActivity() {
         }
 
         myPetDetail_btn_edit.setOnClickListener {
-            val intent = Intent(this, PostPetActivity::class.java)
+            val intent = Intent(this, PostMyPetActivity::class.java)
             val bundle = Bundle()
             bundle.putParcelable("selectedMyPet", pet)
             intent.putExtras(bundle)
@@ -62,7 +64,7 @@ class MyPetDetailActivity : AppCompatActivity() {
 
             builder.setNegativeButton("예") {_, which ->
                 GlobalScope.launch {
-                    myPetDB?.myPetDao()?.delete(pet)
+                    myPetDB?.myPetDao()?.deleteAll()
                     finish()
                 }
             }
@@ -70,7 +72,6 @@ class MyPetDetailActivity : AppCompatActivity() {
         }
 
         val options = BitmapFactory.Options()
-//                options.inSampleSize = 16
         val bitmap = BitmapFactory.decodeByteArray(pet.petImage, 0, pet.petImage!!.size, options)
 
         val rotatedBitmap = when (pet.imgOt) {
@@ -81,7 +82,9 @@ class MyPetDetailActivity : AppCompatActivity() {
             else -> bitmap
         }
 
-        myPetDetail_iv_pet.setImageBitmap(rotatedBitmap)
+        Glide.with(this)
+            .load(rotatedBitmap)
+            .into(myPetDetail_iv_pet)
 
         myPetDetail_et_name.text = pet.petName
         myPetDetail_et_info.text = pet.petInfo

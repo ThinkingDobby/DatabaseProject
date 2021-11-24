@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.media.ExifInterface
 import android.net.Uri
@@ -13,10 +14,12 @@ import android.provider.MediaStore
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import com.bumptech.glide.Glide
 import com.google.firebase.database.ServerValue
 import com.thinkingdobby.databaseproject.data.MyPetDB
 import com.thinkingdobby.databaseproject.data.MyPetPost
 import com.thinkingdobby.databaseproject.functions.createCopyAndReturnRealPath
+import com.thinkingdobby.databaseproject.functions.rotateImage
 import kotlinx.android.synthetic.main.activity_post_my_pet.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -28,6 +31,10 @@ class PostMyPetActivity : AppCompatActivity() {
     private var uriPhoto: Uri? = Uri.parse("android.resource://com.thinkingdobby.databaseproject/drawable/card_background_sample")
 
     private var myPetDB: MyPetDB? = null
+    private lateinit var tempImage: ByteArray
+    private var tempOt = 0
+    private var imageChanged = false
+    private var postId = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +56,34 @@ class PostMyPetActivity : AppCompatActivity() {
 
         val edit = intent.getStringExtra("edit") ?: "no"
         if (edit == "yes") {
+            val bundle = intent.extras
+            val pet = bundle!!.getParcelable<MyPetPost>("selectedMyPet")!!
+
+            postMyPet_et_name.setText(pet.petName)
+            postMyPet_et_info.setText(pet.petInfo)
+            postMyPet_et_breed.setText(pet.petBreed)
+            postMyPet_et_sex.text = pet.petSex
+            postMyPet_et_length.setText(pet.petLength)
+
+            postId = pet.postId!!
+            tempImage = pet.petImage!!
+            tempOt = pet.imgOt!!
+
+            val options = BitmapFactory.Options()
+            val bitmap = BitmapFactory.decodeByteArray(pet.petImage, 0, pet.petImage!!.size, options)
+
+            val rotatedBitmap = when (pet.imgOt) {
+                ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(bitmap, 90f)
+                ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(bitmap, 180f)
+                ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(bitmap, 270f)
+                ExifInterface.ORIENTATION_NORMAL -> bitmap
+                else -> bitmap
+            }
+
+            Glide.with(this)
+                .load(rotatedBitmap)
+                .into(postMyPet_iv_pet)
+
         } else {
             postMyPet_iv_pet.setImageResource(R.drawable.card_background_sample)
         }
@@ -82,27 +117,35 @@ class PostMyPetActivity : AppCompatActivity() {
                 myPetDB = MyPetDB.getInstance(this@PostMyPetActivity)
 
                 val newMyPet = MyPetPost()
+                newMyPet.postId = if (edit == "no") newMyPet.hashCode().toLong() else postId
                 newMyPet.writeTime = ServerValue.TIMESTAMP.toString()
 
-                newMyPet.petBreed = postMyPet_et_breed.text.toString()
                 newMyPet.petName = postMyPet_et_name.text.toString()
+                newMyPet.petBreed = postMyPet_et_breed.text.toString()
                 newMyPet.petSex = postMyPet_et_sex.text.toString()
                 newMyPet.petLength = postMyPet_et_length.text.toString()
 
                 newMyPet.petInfo = postMyPet_et_info.text.toString()
 
-                newMyPet.petImage = getByteArrayFromDrawable(uriPhoto!!)
+                if (edit == "yes" && !imageChanged) newMyPet.petImage = tempImage
+                else newMyPet.petImage = getByteArrayFromDrawable(uriPhoto!!)
 
                 val ei = ExifInterface(createCopyAndReturnRealPath(applicationContext, uriPhoto!!)!!)
                 val orientation = ei.getAttributeInt(
                     ExifInterface.TAG_ORIENTATION,
                     ExifInterface.ORIENTATION_UNDEFINED)
-                newMyPet.imgOt = orientation
 
-                myPetDB?.myPetDao()?.insert(newMyPet)
+                if (edit == "yes" && !imageChanged) newMyPet.imgOt = tempOt
+                else newMyPet.imgOt = orientation
 
-                finish()
+                if (edit == "no") myPetDB?.myPetDao()?.insert(newMyPet)
+                else myPetDB?.myPetDao()?.updateByMyPetPostNo(postId, newMyPet.writeTime!!, newMyPet.petName!!, newMyPet.petBreed!!, newMyPet.petSex!!, newMyPet.petLength!!, newMyPet.petInfo!!, newMyPet.petImage!!, newMyPet.imgOt!!)
             }
+
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+            finish()
         }
     }
 
@@ -120,6 +163,7 @@ class PostMyPetActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 uriPhoto = data?.data
                 postMyPet_iv_pet.setImageURI(uriPhoto)
+                imageChanged = true
             }
         }
     }

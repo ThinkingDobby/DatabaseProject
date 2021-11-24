@@ -17,14 +17,18 @@
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".MyPetDetailActivity" />
-        <activity android:name=".HomeActivity" />
+        <activity
+            android:name=".HomeActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".WriterDetailActivity" />
         <activity android:name=".DetailActivity" />
         <activity
             android:name=".PostPetActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".FindPetActivity" />
+        <activity
+            android:name=".FindPetActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
