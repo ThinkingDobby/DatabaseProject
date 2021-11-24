@@ -1,9 +1,11 @@
 package com.thinkingdobby.databaseproject.viewHolder
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.media.ExifInterface
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.thinkingdobby.databaseproject.R
 import com.thinkingdobby.databaseproject.data.MyPetPost
 import com.thinkingdobby.databaseproject.functions.rotateImage
@@ -17,7 +19,7 @@ class MyPetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val myPet_tv_lengthValue = itemView.myPet_tv_lengthValue
     val myPet_iv_sex = itemView.myPet_iv_sex
 
-    fun bind(myPet: MyPetPost, bitmap: Bitmap) {
+    fun bind(myPet: MyPetPost, bitmap: Bitmap, context: Context) {
         myPet_tv_name.text = myPet.petName
         myPet_tv_breed.text = myPet.petBreed
         myPet_tv_lengthValue.text = myPet.petLength.toString()
@@ -36,6 +38,8 @@ class MyPetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             else -> bitmap
         }
 
-        myPet_iv_background.setImageBitmap(rotatedBitmap)
+        Glide.with(context)
+            .load(rotatedBitmap)
+            .into(myPet_iv_background)
     }
 }

@@ -26,7 +26,7 @@ class MyPetAdapter(val context: Context, private val dataList: List<MyPetPost>, 
     }
 
     override fun onBindViewHolder(holder: MyPetViewHolder, position: Int) {
-        holder.bind(dataList[position], bitmapList[position])
+        holder.bind(dataList[position], bitmapList[position], context)
         holder.itemView.myPet_btn_info.setOnClickListener {
             val intent = Intent(context, MyPetDetailActivity::class.java)
             val bundle = Bundle()
