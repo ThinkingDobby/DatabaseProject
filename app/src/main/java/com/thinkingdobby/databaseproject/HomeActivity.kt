@@ -62,15 +62,13 @@ class HomeActivity : AppCompatActivity() {
         myPetDB = MyPetDB.getInstance(this)
 
         myPetDB?.myPetDao()?.getAll()!!.observe(this, Observer {
-            val sortedList = it.sortedBy { pet -> pet.writeTime }
             val bitmapList = mutableListOf<Bitmap>()
-            for (i in sortedList) {
+            for (i in it!!) {
                 val options = BitmapFactory.Options()
-//                 options.inSampleSize = 16
                 val bitmap = BitmapFactory.decodeByteArray(i.petImage, 0, i.petImage!!.size, options)
                 bitmapList.add(bitmap)
             }
-            myPetAdapter = MyPetAdapter(this@HomeActivity, sortedList, bitmapList)
+            myPetAdapter = MyPetAdapter(this@HomeActivity, it, bitmapList)
             home_rv_list.adapter = myPetAdapter
         })
     }

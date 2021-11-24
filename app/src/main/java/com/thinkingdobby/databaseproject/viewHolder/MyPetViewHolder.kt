@@ -6,6 +6,7 @@ import android.media.ExifInterface
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.thinkingdobby.databaseproject.R
 import com.thinkingdobby.databaseproject.data.MyPetPost
 import com.thinkingdobby.databaseproject.functions.rotateImage
@@ -40,6 +41,7 @@ class MyPetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         Glide.with(context)
             .load(rotatedBitmap)
+            .transform(CenterCrop())
             .into(myPet_iv_background)
     }
 }

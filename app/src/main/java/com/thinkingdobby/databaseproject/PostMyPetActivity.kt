@@ -15,7 +15,7 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import com.bumptech.glide.Glide
-import com.google.firebase.database.ServerValue
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.thinkingdobby.databaseproject.data.MyPetDB
 import com.thinkingdobby.databaseproject.data.MyPetPost
 import com.thinkingdobby.databaseproject.functions.createCopyAndReturnRealPath
@@ -69,6 +69,9 @@ class PostMyPetActivity : AppCompatActivity() {
             tempImage = pet.petImage!!
             tempOt = pet.imgOt!!
 
+            postMyPet_tv_title.text = "동물정보 수정"
+            postMyPet_tv_post.text = "동물정보 수정"
+
             val options = BitmapFactory.Options()
             val bitmap = BitmapFactory.decodeByteArray(pet.petImage, 0, pet.petImage!!.size, options)
 
@@ -82,6 +85,7 @@ class PostMyPetActivity : AppCompatActivity() {
 
             Glide.with(this)
                 .load(rotatedBitmap)
+                .transform(CenterCrop())
                 .into(postMyPet_iv_pet)
 
         } else {
@@ -118,7 +122,7 @@ class PostMyPetActivity : AppCompatActivity() {
 
                 val newMyPet = MyPetPost()
                 newMyPet.postId = if (edit == "no") newMyPet.hashCode().toLong() else postId
-                newMyPet.writeTime = ServerValue.TIMESTAMP.toString()
+                newMyPet.writeTime = System.currentTimeMillis().toString()
 
                 newMyPet.petName = postMyPet_et_name.text.toString()
                 newMyPet.petBreed = postMyPet_et_breed.text.toString()
@@ -170,8 +174,28 @@ class PostMyPetActivity : AppCompatActivity() {
 
     private fun getByteArrayFromDrawable(uri: Uri): ByteArray {
         val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
+
+        val width = bitmap.width
+        val height = bitmap.height
+
+        val scaledBitmap = if (width < height) {
+             Bitmap.createScaledBitmap(
+                bitmap,
+                729,    // Xdp -> 3*X
+                (height.toLong() / (width.toLong() / 729)).toInt(),
+                true
+            )
+        } else {
+            Bitmap.createScaledBitmap(
+                bitmap,
+                (width.toLong() / (height.toLong() / 972)).toInt(),
+                972,
+                true
+            )
+        }
+
         val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, stream)
+        scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream)
 
         return stream.toByteArray()
     }

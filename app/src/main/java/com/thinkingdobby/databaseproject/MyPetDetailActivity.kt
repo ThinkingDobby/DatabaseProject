@@ -6,10 +6,10 @@ import android.graphics.Color
 import android.media.ExifInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.thinkingdobby.databaseproject.data.MyPetDB
 import com.thinkingdobby.databaseproject.data.MyPetPost
 import com.thinkingdobby.databaseproject.functions.rotateImage
@@ -84,6 +84,7 @@ class MyPetDetailActivity : AppCompatActivity() {
 
         Glide.with(this)
             .load(rotatedBitmap)
+            .transform(CenterCrop())
             .into(myPetDetail_iv_pet)
 
         myPetDetail_et_name.text = pet.petName

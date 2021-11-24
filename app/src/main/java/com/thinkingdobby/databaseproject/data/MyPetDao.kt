@@ -5,7 +5,7 @@ import androidx.room.*
 
 @Dao
 interface MyPetDao {
-    @Query("SELECT * FROM MyPet ORDER BY writeTime")
+    @Query("SELECT * FROM MyPet ORDER BY writeTime DESC")
     fun getAll(): LiveData<List<MyPetPost>>
 
     @Query("UPDATE MyPet Set petName = :petName, writeTime = :writeTime, petBreed = :petBreed, petSex = :petSex, petLength = :petLength, petInfo = :petInfo, petImage = :petImage, imgOt = :imgOt WHERE postId = :num")

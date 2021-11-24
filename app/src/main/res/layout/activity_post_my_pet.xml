@@ -46,7 +46,7 @@
 
             <ImageView
                 android:id="@+id/postMyPet_iv_pet"
-                android:layout_width="220dp"
+                android:layout_width="219dp"
                 android:layout_height="292dp"
                 android:layout_marginTop="31dp"
                 android:layout_marginEnd="26dp"
