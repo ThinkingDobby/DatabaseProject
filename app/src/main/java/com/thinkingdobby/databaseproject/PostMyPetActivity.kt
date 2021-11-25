@@ -28,7 +28,7 @@ import java.io.ByteArrayOutputStream
 class PostMyPetActivity : AppCompatActivity() {
     private var sex = "남"
     private var pickImageFromAlbum = 0
-    private var uriPhoto: Uri? = Uri.parse("android.resource://com.thinkingdobby.databaseproject/drawable/card_background_sample")
+    private var uriPhoto: Uri? = Uri.parse("android.resource://com.thinkingdobby.databaseproject/drawable/my_background_sample")
 
     private var myPetDB: MyPetDB? = null
     private lateinit var tempImage: ByteArray
@@ -89,7 +89,7 @@ class PostMyPetActivity : AppCompatActivity() {
                 .into(postMyPet_iv_pet)
 
         } else {
-            postMyPet_iv_pet.setImageResource(R.drawable.card_background_sample)
+            postMyPet_iv_pet.setImageResource(R.drawable.my_background_sample)
         }
 
         postMyPet_btn_back.setOnClickListener {
@@ -179,19 +179,23 @@ class PostMyPetActivity : AppCompatActivity() {
         val height = bitmap.height
 
         val scaledBitmap = if (width < height) {
-             Bitmap.createScaledBitmap(
-                bitmap,
-                729,    // Xdp -> 3*X
-                (height.toLong() / (width.toLong() / 729)).toInt(),
-                true
-            )
+            if (width > 729) {
+                Bitmap.createScaledBitmap(
+                    bitmap,
+                    729,    // Xdp -> 3*X
+                    (height.toLong() / (width.toLong() / 729)).toInt(),
+                    true
+                )
+            } else bitmap
         } else {
-            Bitmap.createScaledBitmap(
-                bitmap,
-                (width.toLong() / (height.toLong() / 972)).toInt(),
-                972,
-                true
-            )
+            if (width > 1300 && height > 972) {
+                Bitmap.createBitmap(
+                    bitmap,
+                    width / 2 - 650,
+                    height / 2 - 486,
+                    1300, 972
+                )
+            } else bitmap
         }
 
         val stream = ByteArrayOutputStream()

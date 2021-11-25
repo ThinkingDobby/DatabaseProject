@@ -198,6 +198,29 @@
                 android:includeFontPadding="false"
                 app:layout_constraintStart_toEndOf="@id/myPetDetail_et_length"
                 app:layout_constraintBottom_toBottomOf="@id/myPetDetail_et_length"/>
+
+            <ImageView
+                android:id="@+id/myPetDetail_btn_toPost"
+                android:layout_width="268dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="48dp"
+                app:layout_constraintTop_toBottomOf="@id/myPetDetail_et_length"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/detail_button_info"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/myPetDetail_btn_toPost"
+                app:layout_constraintBottom_toBottomOf="@id/myPetDetail_btn_toPost"
+                app:layout_constraintStart_toStartOf="@id/myPetDetail_btn_toPost"
+                app:layout_constraintEnd_toEndOf="@id/myPetDetail_btn_toPost"
+                android:text="실종 등록"
+                android:textSize="13sp"
+                android:fontFamily="@font/noto_medium"
+                android:includeFontPadding="false"
+                android:textColor="@color/colorWhite"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

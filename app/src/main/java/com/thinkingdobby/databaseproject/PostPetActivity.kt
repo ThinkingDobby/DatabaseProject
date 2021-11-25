@@ -69,9 +69,11 @@ class PostPetActivity : AppCompatActivity() {
             postPet_et_location.hint = "발견장소를 입력하세요"
 
             postPet_tv_time.text = "발견일시"
+            uriPhoto = Uri.parse("android.resource://com.thinkingdobby.databaseproject/drawable/card_background_sample2")
         }
 
         val edit = intent.getStringExtra("edit") ?: "no"
+        val fromMyPet = intent.getBooleanExtra("fromMyPet", false)
         if (edit == "yes") {
             val bundle = intent.extras
             val pet = bundle!!.getParcelable<PetPost>("selectedPet")!!
@@ -89,37 +91,52 @@ class PostPetActivity : AppCompatActivity() {
             postPet_et_length.setText(pet.length)
             postPet_et_stat.setText(pet.stat)
 
-            val storageRef = FirebaseStorage.getInstance().getReference("images").child(pet.postId)
+            if (fromMyPet) {
+                postPet_tv_title.text = "포스트 추가"
+                postPet_tv_post.text = "포스트 추가"
 
-            val circularProgressDrawable = CircularProgressDrawable(this@PostPetActivity)
-            circularProgressDrawable.setTint(Color.WHITE)   // 추후 수정
-            circularProgressDrawable.strokeWidth = 5f
-            circularProgressDrawable.centerRadius = 30f
-            circularProgressDrawable.start()
+                val imageUri = intent.getParcelableExtra<Uri>("image")
+                Glide.with(this)
+                    .load(imageUri)
+                    .transform(CenterCrop())
+                    .into(postPet_iv_pet)
 
-            storageRef.downloadUrl.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    // Glide 이용하여 이미지뷰에 로딩
-                    try {
-                        Glide.with(this@PostPetActivity)
-                            .load(task.result)
-                            .placeholder(circularProgressDrawable)
-                            .transform(CenterCrop())
-                            .into(postPet_iv_pet)
-                    } catch (e: IllegalArgumentException) {
-                        Log.d("Glide Error", "from PostPetActivity")
+                uriPhoto = imageUri
+            } else {
+                val storageRef =
+                    FirebaseStorage.getInstance().getReference("images").child(pet.postId)
+
+                val circularProgressDrawable = CircularProgressDrawable(this@PostPetActivity)
+                circularProgressDrawable.setTint(Color.WHITE)   // 추후 수정
+                circularProgressDrawable.strokeWidth = 5f
+                circularProgressDrawable.centerRadius = 30f
+                circularProgressDrawable.start()
+
+                storageRef.downloadUrl.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        // Glide 이용하여 이미지뷰에 로딩
+                        try {
+                            Glide.with(this@PostPetActivity)
+                                .load(task.result)
+                                .placeholder(circularProgressDrawable)
+                                .transform(CenterCrop())
+                                .into(postPet_iv_pet)
+                        } catch (e: IllegalArgumentException) {
+                            Log.d("Glide Error", "from PostPetActivity")
+                        }
+                    } else {
+                        // URL을 가져오지 못하면 토스트 메세지
+                        Toast.makeText(
+                            this@PostPetActivity,
+                            task.exception!!.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                } else {
-                    // URL을 가져오지 못하면 토스트 메세지
-                    Toast.makeText(
-                        this@PostPetActivity,
-                        task.exception!!.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
             }
         } else {
-            postPet_iv_pet.setImageResource(R.drawable.card_background_sample)
+            if (mode == "FindPet") postPet_iv_pet.setImageResource(R.drawable.card_background_sample)
+            else postPet_iv_pet.setImageResource(R.drawable.card_background_sample2)
         }
 
         postPet_btn_back.setOnClickListener {
@@ -168,7 +185,7 @@ class PostPetActivity : AppCompatActivity() {
             var ref = FirebaseDatabase.getInstance().getReference(mode!!).push()
 
             val post = PetPost()
-            post.postId = if (edit == "no") ref.key!! else postId
+            post.postId = if (edit == "no" || fromMyPet) ref.key!! else postId
             post.writeTime = ServerValue.TIMESTAMP
             post.writer = getMyId(this)
 
@@ -185,12 +202,12 @@ class PostPetActivity : AppCompatActivity() {
             post.find = false
 
             // Firebase Database Upload
-            if (edit == "no") ref.setValue(post)
+            if (edit == "no" || fromMyPet) ref.setValue(post)
             // Firebase Update
             else FirebaseDatabase.getInstance().getReference("$mode/$postId").setValue(post)
 
             // Firebase Storage Upload
-            if (imageChanged) imageUpload(post.postId)
+            if (imageChanged || fromMyPet) imageUpload(post.postId)
             else if (edit == "no") imageUpload(post.postId)
             else {
                 Log.d("test", "test")
