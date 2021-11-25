@@ -229,8 +229,6 @@ class PostPetActivity : AppCompatActivity() {
     }
 
     private fun loadImage() {
-        contentResolver.delete(imageUri!!, null, null)
-
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
@@ -246,26 +244,6 @@ class PostPetActivity : AppCompatActivity() {
                 postPet_iv_pet.setImageURI(uriPhoto)
                 imageChanged = true
             }
-        } else {
-            if (fromMyPet) {
-                fun getImageUri(image: Bitmap?): Uri? {
-                    val bytes = ByteArrayOutputStream()
-                    image?.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-                    val path = MediaStore.Images.Media.insertImage(
-                        this.contentResolver,
-                        image,
-                        "Title" + " - " + Calendar.getInstance().time,
-                        null
-                    )
-                    return Uri.parse(path)
-                }
-
-                Log.d("test1", "test")
-                val basicBitmap = intent.getParcelableExtra<Bitmap>("basicBitmap")
-                Log.d("test2", basicBitmap.toString())
-                imageUri = getImageUri(basicBitmap)
-                if (!imageChanged) uriPhoto = imageUri
-            }
         }
     }
 
@@ -274,7 +252,6 @@ class PostPetActivity : AppCompatActivity() {
 
         storageRef.putFile(uriPhoto!!).addOnSuccessListener {
             Toast.makeText(this@PostPetActivity, "업로드 되었습니다.", Toast.LENGTH_SHORT).show()
-            if (fromMyPet) contentResolver.delete(imageUri!!, null, null)
 
             val intent = Intent(this, FindPetActivity::class.java)
             intent.putExtra("mode", mode)
@@ -285,6 +262,7 @@ class PostPetActivity : AppCompatActivity() {
     }
 
     override fun finish() {
+        if (fromMyPet) contentResolver.delete(imageUri!!, null, null)
         super.finish()
         overridePendingTransition(R.anim.fadein, R.anim.fadeout)
     }

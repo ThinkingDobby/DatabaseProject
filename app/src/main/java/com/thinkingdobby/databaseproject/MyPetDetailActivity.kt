@@ -129,7 +129,6 @@ class MyPetDetailActivity : AppCompatActivity() {
             intent.putExtras(bundle)
             intent.putExtra("fromMyPet", true)
             intent.putExtra("image", uri)
-            intent.putExtra("basicBitmap", rotatedBitmap)
             intent.putExtra("mode", "FindPet")
             intent.putExtra("edit", "yes")
             startActivity(intent)
