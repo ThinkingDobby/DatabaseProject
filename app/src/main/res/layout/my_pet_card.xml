@@ -47,7 +47,7 @@
             android:textSize="14dp"
             android:textColor="@color/colorWhite"
             android:fontFamily="@font/noto_bold"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="2dp"
             android:includeFontPadding="false"
             app:layout_constraintStart_toStartOf="@id/myPet_tv_breed"
             app:layout_constraintTop_toBottomOf="@id/myPet_tv_breed"/>
@@ -59,7 +59,7 @@
             android:text="성별"
             android:textColor="@color/colorWhite"
             android:fontFamily="@font/noto_regular"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:textSize="10sp"
             android:includeFontPadding="false"
             app:layout_constraintTop_toBottomOf="@id/myPet_tv_name"
@@ -70,7 +70,7 @@
             android:layout_width="15dp"
             android:layout_height="16dp"
             android:src="@drawable/icon_gender_girl"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="6dp"
             android:layout_marginStart="7dp"
             app:layout_constraintStart_toEndOf="@id/myPet_tv_sex"
             app:layout_constraintTop_toBottomOf="@id/myPet_tv_name"/>
@@ -99,7 +99,7 @@
             android:fontFamily="@font/noto_medium"
             android:includeFontPadding="false"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="5dp"
             app:layout_constraintStart_toEndOf="@id/myPet_tv_lengthTitle"
             app:layout_constraintTop_toBottomOf="@id/myPet_tv_name"/>
 

@@ -11,6 +11,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -183,17 +184,17 @@ class PostMyPetActivity : AppCompatActivity() {
                 Bitmap.createScaledBitmap(
                     bitmap,
                     729,    // Xdp -> 3*X
-                    (height.toLong() / (width.toLong() / 729)).toInt(),
+                    (height.toDouble() / (width.toDouble() / 729)).toInt(),
                     true
                 )
             } else bitmap
         } else {
-            if (width > 1300 && height > 972) {
-                Bitmap.createBitmap(
+            if (height > 972) {
+                Bitmap.createScaledBitmap(
                     bitmap,
-                    width / 2 - 650,
-                    height / 2 - 486,
-                    1300, 972
+                    (width.toDouble() / (height.toDouble() / 972)).toInt(),
+                    972,
+                    true
                 )
             } else bitmap
         }
