@@ -5,11 +5,13 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.DatePicker
@@ -26,6 +28,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.thinkingdobby.databaseproject.data.PetPost
 import com.thinkingdobby.databaseproject.functions.getMyId
 import kotlinx.android.synthetic.main.activity_post_pet.*
+import java.io.ByteArrayOutputStream
 import java.lang.IllegalArgumentException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -40,6 +43,9 @@ class PostPetActivity : AppCompatActivity() {
     private var mode: String? = "FindPet"
     private var postId = "temp"
     private var imageChanged = false
+
+    private var imageUri: Uri? = null
+    private var fromMyPet = false
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,7 +79,7 @@ class PostPetActivity : AppCompatActivity() {
         }
 
         val edit = intent.getStringExtra("edit") ?: "no"
-        val fromMyPet = intent.getBooleanExtra("fromMyPet", false)
+        fromMyPet = intent.getBooleanExtra("fromMyPet", false)
         if (edit == "yes") {
             val bundle = intent.extras
             val pet = bundle!!.getParcelable<PetPost>("selectedPet")!!
@@ -95,7 +101,8 @@ class PostPetActivity : AppCompatActivity() {
                 postPet_tv_title.text = "포스트 추가"
                 postPet_tv_post.text = "포스트 추가"
 
-                val imageUri = intent.getParcelableExtra<Uri>("image")
+                imageUri = intent.getParcelableExtra("image")
+
                 Glide.with(this)
                     .load(imageUri)
                     .transform(CenterCrop())
@@ -222,6 +229,8 @@ class PostPetActivity : AppCompatActivity() {
     }
 
     private fun loadImage() {
+        contentResolver.delete(imageUri!!, null, null)
+
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
@@ -237,6 +246,26 @@ class PostPetActivity : AppCompatActivity() {
                 postPet_iv_pet.setImageURI(uriPhoto)
                 imageChanged = true
             }
+        } else {
+            if (fromMyPet) {
+                fun getImageUri(image: Bitmap?): Uri? {
+                    val bytes = ByteArrayOutputStream()
+                    image?.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+                    val path = MediaStore.Images.Media.insertImage(
+                        this.contentResolver,
+                        image,
+                        "Title" + " - " + Calendar.getInstance().time,
+                        null
+                    )
+                    return Uri.parse(path)
+                }
+
+                Log.d("test1", "test")
+                val basicBitmap = intent.getParcelableExtra<Bitmap>("basicBitmap")
+                Log.d("test2", basicBitmap.toString())
+                imageUri = getImageUri(basicBitmap)
+                if (!imageChanged) uriPhoto = imageUri
+            }
         }
     }
 
@@ -245,6 +274,8 @@ class PostPetActivity : AppCompatActivity() {
 
         storageRef.putFile(uriPhoto!!).addOnSuccessListener {
             Toast.makeText(this@PostPetActivity, "업로드 되었습니다.", Toast.LENGTH_SHORT).show()
+            if (fromMyPet) contentResolver.delete(imageUri!!, null, null)
+
             val intent = Intent(this, FindPetActivity::class.java)
             intent.putExtra("mode", mode)
             startActivity(intent)
