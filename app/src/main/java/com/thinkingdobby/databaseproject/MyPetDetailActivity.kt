@@ -74,6 +74,7 @@ class MyPetDetailActivity : AppCompatActivity() {
                 GlobalScope.launch {
                     myPetDB?.myPetDao()?.delete(pet)
                     finish()
+                    overridePendingTransition(R.anim.fadein, R.anim.fadeout)
                 }
             }
             builder.create().show()

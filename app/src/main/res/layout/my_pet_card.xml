@@ -27,12 +27,12 @@
             android:adjustViewBounds="true"/>
 
         <TextView
-            android:id="@+id/myPet_tv_name"
+            android:id="@+id/myPet_tv_breed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="별이"
+            android:text="포메라니안"
             android:textSize="14dp"
-            android:fontFamily="@font/noto_bold"
+            android:fontFamily="@font/noto_regular"
             android:textColor="@color/colorWhite"
             android:layout_marginStart="17dp"
             android:includeFontPadding="false"
@@ -40,17 +40,17 @@
             app:layout_constraintStart_toStartOf="@id/myPet_iv_shadowBot"/>
 
         <TextView
-            android:id="@+id/myPet_tv_breed"
+            android:id="@+id/myPet_tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="포메라니안"
-            android:textSize="11dp"
+            android:text="별이"
+            android:textSize="14dp"
             android:textColor="@color/colorWhite"
             android:fontFamily="@font/noto_bold"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="3dp"
             android:includeFontPadding="false"
-            app:layout_constraintStart_toStartOf="@id/myPet_tv_name"
-            app:layout_constraintTop_toBottomOf="@id/myPet_tv_name"/>
+            app:layout_constraintStart_toStartOf="@id/myPet_tv_breed"
+            app:layout_constraintTop_toBottomOf="@id/myPet_tv_breed"/>
 
         <TextView
             android:id="@+id/myPet_tv_sex"
@@ -62,8 +62,8 @@
             android:layout_marginTop="5dp"
             android:textSize="10sp"
             android:includeFontPadding="false"
-            app:layout_constraintTop_toBottomOf="@id/myPet_tv_breed"
-            app:layout_constraintStart_toStartOf="@id/myPet_tv_name"/>
+            app:layout_constraintTop_toBottomOf="@id/myPet_tv_name"
+            app:layout_constraintStart_toStartOf="@id/myPet_tv_breed"/>
 
         <ImageView
             android:id="@+id/myPet_iv_sex"
@@ -73,7 +73,7 @@
             android:layout_marginTop="3dp"
             android:layout_marginStart="7dp"
             app:layout_constraintStart_toEndOf="@id/myPet_tv_sex"
-            app:layout_constraintTop_toBottomOf="@id/myPet_tv_breed"/>
+            app:layout_constraintTop_toBottomOf="@id/myPet_tv_name"/>
 
         <TextView
             android:id="@+id/myPet_tv_lengthTitle"
@@ -101,7 +101,7 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="2dp"
             app:layout_constraintStart_toEndOf="@id/myPet_tv_lengthTitle"
-            app:layout_constraintTop_toBottomOf="@id/myPet_tv_breed"/>
+            app:layout_constraintTop_toBottomOf="@id/myPet_tv_name"/>
 
         <TextView
             android:layout_width="wrap_content"
