@@ -13,11 +13,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val pref = getSharedPreferences("basic", MODE_PRIVATE)
         val first = pref.getBoolean("isFirst", true)
-        val editor = pref.edit()
+
         if (first) {
-            editor.putBoolean("isFirst", false)
-            editor.apply()
             startActivity(Intent(this, CreateAccountActivity::class.java))
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+            finish()
         }
 
         super.onCreate(savedInstanceState)

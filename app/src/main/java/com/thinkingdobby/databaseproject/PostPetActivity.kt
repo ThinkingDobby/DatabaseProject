@@ -5,13 +5,11 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.DatePicker
@@ -26,9 +24,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 import com.google.firebase.storage.FirebaseStorage
 import com.thinkingdobby.databaseproject.data.PetPost
-import com.thinkingdobby.databaseproject.functions.getMyId
 import kotlinx.android.synthetic.main.activity_post_pet.*
-import java.io.ByteArrayOutputStream
 import java.lang.IllegalArgumentException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -186,48 +182,56 @@ class PostPetActivity : AppCompatActivity() {
 
 
         postPet_btn_post.setOnClickListener {
-            ProgressDialog.show(this, "", "업로드 중입니다...", true)
+            if (postPet_et_location.length() == 0 || postPet_et_info.length() == 0) {
+                if (mode == "FindPet") {
+                    Toast.makeText(this, "실종장소와 특징을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                } else if (mode == "FindPerson") {
+                    Toast.makeText(this, "발견장소와 특징을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                ProgressDialog.show(this, "", "업로드 중입니다...", true)
 
-            // Firebase Database Upload
-            var ref = FirebaseDatabase.getInstance().getReference(mode!!).push()
+                // Firebase Database Upload
+                var ref = FirebaseDatabase.getInstance().getReference(mode!!).push()
 
-            val post = PetPost()
-            post.postId = if (edit == "no" || fromMyPet) ref.key!! else postId
-            post.writeTime = ServerValue.TIMESTAMP
+                val post = PetPost()
+                post.postId = if (edit == "no" || fromMyPet) ref.key!! else postId
+                post.writeTime = ServerValue.TIMESTAMP
 
-            val pref = getSharedPreferences("basic", MODE_PRIVATE)
-            val writerId = pref.getString("writerId", "temp")
+                val pref = getSharedPreferences("basic", MODE_PRIVATE)
+                val writerId = pref.getString("writerId", "temp")
 
-            post.writer = writerId!!
+                post.writer = writerId!!
 
-            post.location = postPet_et_location.text.toString()
-            post.time = time
-            post.breed = postPet_et_breed.text.toString()
-            post.name = postPet_et_name.text.toString()
-            post.sex = postPet_et_sex.text.toString()
-            post.length = postPet_et_length.text.toString()
+                post.location = postPet_et_location.text.toString()
+                post.time = time
+                post.breed = postPet_et_breed.text.toString()
+                post.name = postPet_et_name.text.toString()
+                post.sex = postPet_et_sex.text.toString()
+                post.length = postPet_et_length.text.toString()
 
-            post.info = postPet_et_info.text.toString()
-            post.stat = postPet_et_stat.text.toString()
+                post.info = postPet_et_info.text.toString()
+                post.stat = postPet_et_stat.text.toString()
 
-            post.find = false
+                post.find = false
 
-            // Firebase Database Upload
-            if (edit == "no" || fromMyPet) ref.setValue(post)
-            // Firebase Update
-            else FirebaseDatabase.getInstance().getReference("$mode/$postId").setValue(post)
+                // Firebase Database Upload
+                if (edit == "no" || fromMyPet) ref.setValue(post)
+                // Firebase Update
+                else FirebaseDatabase.getInstance().getReference("$mode/$postId").setValue(post)
 
-            // Firebase Storage Upload
-            if (imageChanged || fromMyPet) imageUpload(post.postId)
-            else if (edit == "no") imageUpload(post.postId)
-            else {
-                Log.d("test", "test")
-                Toast.makeText(this@PostPetActivity, "업로드 되었습니다.", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, FindPetActivity::class.java)
-                intent.putExtra("mode", mode)
-                startActivity(intent)
-                overridePendingTransition(R.anim.fadein, R.anim.fadeout)
-                finish()
+                // Firebase Storage Upload
+                if (imageChanged || fromMyPet) imageUpload(post.postId)
+                else if (edit == "no") imageUpload(post.postId)
+                else {
+                    Log.d("test", "test")
+                    Toast.makeText(this@PostPetActivity, "업로드 되었습니다.", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, FindPetActivity::class.java)
+                    intent.putExtra("mode", mode)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+                    finish()
+                }
             }
         }
     }

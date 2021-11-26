@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import com.bumptech.glide.Glide
@@ -118,39 +119,55 @@ class PostMyPetActivity : AppCompatActivity() {
         }
 
         postMyPet_btn_post.setOnClickListener {
-            GlobalScope.launch {
-                myPetDB = MyPetDB.getInstance(this@PostMyPetActivity)
+            if (postMyPet_et_name.length() == 0) {
+                Toast.makeText(this, "이름을 입력해 주세요.", Toast.LENGTH_SHORT).show()
+            } else {
+                GlobalScope.launch {
+                    myPetDB = MyPetDB.getInstance(this@PostMyPetActivity)
 
-                val newMyPet = MyPetPost()
-                newMyPet.postId = if (edit == "no") newMyPet.hashCode().toLong() else postId
-                newMyPet.writeTime = System.currentTimeMillis().toString()
+                    val newMyPet = MyPetPost()
+                    newMyPet.postId = if (edit == "no") newMyPet.hashCode().toLong() else postId
+                    newMyPet.writeTime = System.currentTimeMillis().toString()
 
-                newMyPet.petName = postMyPet_et_name.text.toString()
-                newMyPet.petBreed = postMyPet_et_breed.text.toString()
-                newMyPet.petSex = postMyPet_et_sex.text.toString()
-                newMyPet.petLength = postMyPet_et_length.text.toString()
+                    newMyPet.petName = postMyPet_et_name.text.toString()
+                    newMyPet.petBreed = postMyPet_et_breed.text.toString()
+                    newMyPet.petSex = postMyPet_et_sex.text.toString()
+                    newMyPet.petLength = postMyPet_et_length.text.toString()
 
-                newMyPet.petInfo = postMyPet_et_info.text.toString()
+                    newMyPet.petInfo = postMyPet_et_info.text.toString()
 
-                if (edit == "yes" && !imageChanged) newMyPet.petImage = tempImage
-                else newMyPet.petImage = getByteArrayFromDrawable(uriPhoto!!)
+                    if (edit == "yes" && !imageChanged) newMyPet.petImage = tempImage
+                    else newMyPet.petImage = getByteArrayFromDrawable(uriPhoto!!)
 
-                val ei = ExifInterface(createCopyAndReturnRealPath(applicationContext, uriPhoto!!)!!)
-                val orientation = ei.getAttributeInt(
-                    ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_UNDEFINED)
+                    val ei =
+                        ExifInterface(createCopyAndReturnRealPath(applicationContext, uriPhoto!!)!!)
+                    val orientation = ei.getAttributeInt(
+                        ExifInterface.TAG_ORIENTATION,
+                        ExifInterface.ORIENTATION_UNDEFINED
+                    )
 
-                if (edit == "yes" && !imageChanged) newMyPet.imgOt = tempOt
-                else newMyPet.imgOt = orientation
+                    if (edit == "yes" && !imageChanged) newMyPet.imgOt = tempOt
+                    else newMyPet.imgOt = orientation
 
-                if (edit == "no") myPetDB?.myPetDao()?.insert(newMyPet)
-                else myPetDB?.myPetDao()?.updateByMyPetPostNo(postId, newMyPet.writeTime!!, newMyPet.petName!!, newMyPet.petBreed!!, newMyPet.petSex!!, newMyPet.petLength!!, newMyPet.petInfo!!, newMyPet.petImage!!, newMyPet.imgOt!!)
+                    if (edit == "no") myPetDB?.myPetDao()?.insert(newMyPet)
+                    else myPetDB?.myPetDao()?.updateByMyPetPostNo(
+                        postId,
+                        newMyPet.writeTime!!,
+                        newMyPet.petName!!,
+                        newMyPet.petBreed!!,
+                        newMyPet.petSex!!,
+                        newMyPet.petLength!!,
+                        newMyPet.petInfo!!,
+                        newMyPet.petImage!!,
+                        newMyPet.imgOt!!
+                    )
+                }
+
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+                overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+                finish()
             }
-
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
-            finish()
         }
     }
 
