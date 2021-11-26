@@ -194,7 +194,11 @@ class PostPetActivity : AppCompatActivity() {
             val post = PetPost()
             post.postId = if (edit == "no" || fromMyPet) ref.key!! else postId
             post.writeTime = ServerValue.TIMESTAMP
-            post.writer = getMyId(this)
+
+            val pref = getSharedPreferences("basic", MODE_PRIVATE)
+            val writerId = pref.getString("writerId", "temp")
+
+            post.writer = writerId!!
 
             post.location = postPet_et_location.text.toString()
             post.time = time

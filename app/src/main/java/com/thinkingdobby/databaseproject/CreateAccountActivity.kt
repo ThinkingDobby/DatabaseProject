@@ -26,9 +26,8 @@ class CreateAccountActivity : AppCompatActivity() {
             }
         }
 
-        val pref = getSharedPreferences("isFirst", MODE_PRIVATE)
+        val pref = getSharedPreferences("basic", MODE_PRIVATE)
         val editor = pref.edit()
-        editor.putBoolean("isFirst", false)
 
         createAccount_btn_createAccount.setOnClickListener {
             val ref = FirebaseDatabase.getInstance().getReference("account").push()
@@ -36,13 +35,17 @@ class CreateAccountActivity : AppCompatActivity() {
             val contact = createAccount_et_contact.text.toString()
             val info = createAccount_et_info.text.toString()
 
-            editor.putString("writerId", ref.key!!)
+            val refKey = ref.key!!.toString()
+            editor.putString("writerId", refKey)
+            editor.apply()
 
-            val user = User(ref.key!!, nickname, contact, info)
+            val user = User(refKey, nickname, contact, info)
             ref.setValue(user)
 
             val intent = Intent(this, MainActivity::class.java)
+            finish()
             startActivity(intent)
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
         }
     }
 

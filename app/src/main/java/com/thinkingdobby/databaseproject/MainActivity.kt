@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val pref = getSharedPreferences("isFirst", MODE_PRIVATE)
+        val pref = getSharedPreferences("basic", MODE_PRIVATE)
         val first = pref.getBoolean("isFirst", true)
         val editor = pref.edit()
         if (first) {

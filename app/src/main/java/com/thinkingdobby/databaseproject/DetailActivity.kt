@@ -43,7 +43,9 @@ class DetailActivity : AppCompatActivity() {
         val bundle = intent.extras
         val pet = bundle!!.getParcelable<PetPost>("selectedPet")!!
         val mode = intent.getStringExtra("mode") ?: "FindPet"
-        val nowId = getMyId(this)
+
+        val pref = getSharedPreferences("basic", MODE_PRIVATE)
+        val nowId = pref.getString("writerId", "temp")
 
         if (mode == "FindPerson") {
             detail_tv_location.text = "발견장소"
