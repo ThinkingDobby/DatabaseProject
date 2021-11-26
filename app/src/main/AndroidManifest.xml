@@ -12,14 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".CreateAccountActivity"></activity>
         <activity
             android:name=".PostMyPetActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".MyPetDetailActivity" />
         <activity
             android:name=".HomeActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity android:name=".WriterDetailActivity" />
         <activity android:name=".DetailActivity" />
         <activity
@@ -28,7 +29,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".FindPetActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

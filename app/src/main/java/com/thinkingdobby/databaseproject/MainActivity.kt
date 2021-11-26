@@ -11,6 +11,15 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val pref = getSharedPreferences("isFirst", MODE_PRIVATE)
+        val first = pref.getBoolean("isFirst", true)
+        val editor = pref.edit()
+        if (first) {
+            editor.putBoolean("isFirst", false)
+            editor.apply()
+            startActivity(Intent(this, CreateAccountActivity::class.java))
+        }
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -22,14 +31,6 @@ class MainActivity : AppCompatActivity() {
                 statusBarColor = Color.TRANSPARENT
             }
         }
-
-        /*
-        val database = Firebase.database
-        val myRef = database.getReference("message")
-
-        myRef.setValue("Hello, World!")
-
-         */
 
         main_iv_login.setOnClickListener {
             val intent = Intent(this, FindPetActivity::class.java)
