@@ -1,5 +1,6 @@
 package com.thinkingdobby.databaseproject
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,6 +21,7 @@ class WriterDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_writer_detail)
 
         val writerId = intent.getStringExtra("writerId")
+
         Firebase.database.getReference("account").child(writerId!!).get().addOnSuccessListener {
             val user = it.getValue(User::class.java)
             writerDetail_et_nickname.text = user?.nickname
@@ -34,6 +36,19 @@ class WriterDetailActivity : AppCompatActivity() {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                 statusBarColor = Color.TRANSPARENT
             }
+        }
+
+        val fromHome = intent.getBooleanExtra("fromHome", false)
+
+        if (fromHome) {
+            writerDetail_btn_edit.visibility = View.VISIBLE
+        }
+
+        writerDetail_btn_edit.setOnClickListener {
+            val intent = Intent(this, CreateAccountActivity::class.java)
+            intent.putExtra("edit", true)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
         }
 
         writerDetail_btn_back.setOnClickListener {

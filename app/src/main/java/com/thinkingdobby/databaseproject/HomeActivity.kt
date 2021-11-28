@@ -49,6 +49,16 @@ class HomeActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
         }
 
+        home_btn_profile.setOnClickListener {
+            val pref = getSharedPreferences("basic", MODE_PRIVATE)
+            val nowId = pref.getString("writerId", "temp")
+            val intent = Intent(this, WriterDetailActivity::class.java)
+            intent.putExtra("writerId", nowId)
+            intent.putExtra("fromHome", true)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+        }
+
         home_btn_add.setOnClickListener {
             val intent = Intent(this, PostMyPetActivity::class.java)
             startActivity(intent)

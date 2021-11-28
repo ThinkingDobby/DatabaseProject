@@ -21,7 +21,9 @@
         <activity
             android:name=".HomeActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".WriterDetailActivity" />
+        <activity
+            android:name=".WriterDetailActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".DetailActivity" />
         <activity
             android:name=".PostPetActivity"

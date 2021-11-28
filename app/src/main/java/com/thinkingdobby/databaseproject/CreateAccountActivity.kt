@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.thinkingdobby.databaseproject.data.User
 import kotlinx.android.synthetic.main.activity_create_account.*
 
@@ -29,6 +31,21 @@ class CreateAccountActivity : AppCompatActivity() {
 
         val pref = getSharedPreferences("basic", MODE_PRIVATE)
         val editor = pref.edit()
+        val edit = intent.getBooleanExtra("edit", false)
+
+        if (edit) {
+            val nowId = pref.getString("writerId", "temp")!!
+            createAccount_tv_subTitle.text = "계정정보 변경"
+            createAccount_tv_createAccount.text = "계정정보 변경"
+
+            Firebase.database.getReference("account").child(nowId).get().addOnSuccessListener {
+                val user = it.getValue(User::class.java)
+                createAccount_et_nickname.setText(user?.nickname)
+                createAccount_et_contact.setText(user?.contact)
+                createAccount_et_info.setText(user?.info)
+            }
+        }
+
 
         createAccount_btn_createAccount.setOnClickListener {
             if (createAccount_et_nickname.length() == 0 || createAccount_et_contact.length() == 0) {
@@ -39,19 +56,33 @@ class CreateAccountActivity : AppCompatActivity() {
                 val contact = createAccount_et_contact.text.toString()
                 val info = createAccount_et_info.text.toString()
 
-                val refKey = ref.key!!.toString()
-                editor.putString("writerId", refKey)
-                editor.apply()
+                if (!edit) {
+                    val refKey = ref.key!!.toString()
+                    editor.putString("writerId", refKey)
+                    editor.apply()
 
-                val user = User(refKey, nickname, contact, info)
-                ref.setValue(user)
+                    val user = User(refKey, nickname, contact, info)
+                    ref.setValue(user)
+                } else {
+                    val nowId = pref.getString("writerId", "temp")!!
+                    val user = User(nowId, nickname, contact, info)
+                    FirebaseDatabase.getInstance().getReference("account/$nowId").setValue(user)
+                }
 
                 editor.putBoolean("isFirst", false)
                 editor.apply()
 
-                val intent = Intent(this, MainActivity::class.java)
-                finish()
-                startActivity(intent)
+                if (!edit) {
+                    val intent = Intent(this, MainActivity::class.java)
+                    Toast.makeText(this@CreateAccountActivity, "계정이 생성되었습니다.", Toast.LENGTH_SHORT).show()
+                    finish()
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                    Toast.makeText(this@CreateAccountActivity, "계정정보가 변경되었습니다.", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
                 overridePendingTransition(R.anim.fadein, R.anim.fadeout)
             }
         }
