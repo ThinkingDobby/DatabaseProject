@@ -9,6 +9,8 @@
 
     <!-- 추후 로딩화면 변경 -->
     <item name="android:windowBackground">@color/colorBlack</item>
+
+    <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
 </style>
 
 </resources>

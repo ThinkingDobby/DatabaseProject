@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorBlack</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- 추후 로딩화면 변경 -->
+        <item name="android:windowBackground">@color/colorBlack</item>
+
+        <item name="android:navigationBarColor">@color/colorBlack</item>
+    </style>
+</resources>
