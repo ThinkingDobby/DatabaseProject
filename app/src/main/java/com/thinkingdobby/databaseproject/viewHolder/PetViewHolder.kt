@@ -2,13 +2,11 @@ package com.thinkingdobby.databaseproject.viewHolder
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.ColorFilter
 import android.os.Build
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide

@@ -106,8 +106,7 @@ class PostPetActivity : AppCompatActivity() {
 
                 uriPhoto = imageUri
             } else {
-                val storageRef =
-                    FirebaseStorage.getInstance().getReference("images").child(pet.postId)
+                val storageRef = FirebaseStorage.getInstance().getReference("images").child(pet.postId)
 
                 val circularProgressDrawable = CircularProgressDrawable(this@PostPetActivity)
                 circularProgressDrawable.setTint(Color.WHITE)   // 추후 수정
@@ -192,7 +191,7 @@ class PostPetActivity : AppCompatActivity() {
                 ProgressDialog.show(this, "", "업로드 중입니다...", true)
 
                 // Firebase Database Upload
-                var ref = FirebaseDatabase.getInstance().getReference(mode!!).push()
+                val ref = FirebaseDatabase.getInstance().getReference(mode!!).push()
 
                 val post = PetPost()
                 post.postId = if (edit == "no" || fromMyPet) ref.key!! else postId

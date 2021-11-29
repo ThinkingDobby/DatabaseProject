@@ -41,6 +41,7 @@ class WriterDetailActivity : AppCompatActivity() {
         val fromHome = intent.getBooleanExtra("fromHome", false)
 
         if (fromHome) {
+            writerDetail_tv_title.text = "사용자 정보"
             writerDetail_btn_edit.visibility = View.VISIBLE
         }
 

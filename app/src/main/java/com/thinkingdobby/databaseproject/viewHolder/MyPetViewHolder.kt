@@ -7,9 +7,6 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.CenterInside
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.bumptech.glide.request.RequestOptions
 import com.thinkingdobby.databaseproject.R
 import com.thinkingdobby.databaseproject.data.MyPetPost
 import com.thinkingdobby.databaseproject.functions.rotateImage
