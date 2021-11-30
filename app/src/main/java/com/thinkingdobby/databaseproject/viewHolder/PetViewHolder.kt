@@ -73,11 +73,7 @@ class PetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 }
             } else {
                 // URL을 가져오지 못하면 토스트 메세지
-                Toast.makeText(
-                    context,
-                    task.exception!!.message,
-                    Toast.LENGTH_SHORT
-                ).show()
+                Log.d("Image Load Error", "URL 불러오지 못함")
             }
         }
     }

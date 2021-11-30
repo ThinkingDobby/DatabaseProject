@@ -157,6 +157,7 @@ class FindPetActivity : AppCompatActivity() {
                                 val existIndex = postList.map { it.postId }.indexOf(post.postId)
                                 postList.removeAt(existIndex)
                                 findPet_rv_list.adapter?.notifyItemRemoved(existIndex)
+                                findPet_rv_list.adapter?.notifyItemRangeChanged(existIndex, postList.size)
                             }
                             if (postList.size != 0) findPet_tv_empty.visibility = View.INVISIBLE
                             else findPet_tv_empty.visibility = View.VISIBLE
