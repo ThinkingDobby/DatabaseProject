@@ -26,6 +26,10 @@ class PetAdapter(val context: Context, private val dataList: MutableList<PetPost
         return dataList.size
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onBindViewHolder(holder: PetViewHolder, position: Int) {
         holder.bind(dataList[position], context, mode)
