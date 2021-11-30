@@ -37,12 +37,14 @@ class FindPetActivity : AppCompatActivity() {
 
         if (mode == "FindPet") {
             findPet_tv_title.text = "주인이 찾고 있는 동물들"
+            findPet_btn_toFindPet.isEnabled = false
 
             findPet_btn_toFindPet.setImageResource(R.drawable.bot_icon_find_pet_on)
             findPet_btn_toFindPerson.setImageResource(R.drawable.bot_icon_find_person_off)
             findPet_btn_toHome.setImageResource(R.drawable.bot_icon_home_off)
         } else if (mode == "FindPerson") {
             findPet_tv_title.text = "주인을 찾고 있는 동물들"
+            findPet_btn_toFindPerson.isEnabled = false
 
             findPet_btn_toFindPet.setImageResource(R.drawable.bot_icon_find_pet_off)
             findPet_btn_toFindPerson.setImageResource(R.drawable.bot_icon_find_person_on)
@@ -109,7 +111,7 @@ class FindPetActivity : AppCompatActivity() {
                                     findPet_rv_list.adapter?.notifyItemInserted(prevIndex + 1)
                                 }
                             }
-//                        if (postList.size != 0) list_tv_noPost.text = ""
+                        if (postList.size != 0) findPet_tv_empty.visibility = View.INVISIBLE
                         }
                     }
 
@@ -156,7 +158,8 @@ class FindPetActivity : AppCompatActivity() {
                                 postList.removeAt(existIndex)
                                 findPet_rv_list.adapter?.notifyItemRemoved(existIndex)
                             }
-//                        if (postList.size != 0) list_tv_noPost.text = ""
+                            if (postList.size != 0) findPet_tv_empty.visibility = View.INVISIBLE
+                            else findPet_tv_empty.visibility = View.VISIBLE
                         }
                     }
 
@@ -165,8 +168,8 @@ class FindPetActivity : AppCompatActivity() {
                     }
                 })
 
-//        if (postList.size == 0) list_tv_noPost.text = "게시물이 없습니다."
-//        else list_tv_noPost.text = ""
+            if (postList.size == 0) findPet_tv_empty.visibility = View.VISIBLE
+            else findPet_tv_empty.visibility = View.INVISIBLE
         } catch (e: Exception) {
             Log.d("Load Error", e.toString())
         }

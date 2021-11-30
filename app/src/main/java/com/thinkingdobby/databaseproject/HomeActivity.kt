@@ -72,6 +72,8 @@ class HomeActivity : AppCompatActivity() {
         myPetDB = MyPetDB.getInstance(this)
 
         myPetDB?.myPetDao()?.getAll()!!.observe(this, Observer {
+            if (it.isNotEmpty()) home_tv_empty.visibility = View.INVISIBLE
+            else home_tv_empty.visibility = View.VISIBLE
             val bitmapList = mutableListOf<Bitmap>()
             for (i in it!!) {
                 val options = BitmapFactory.Options()

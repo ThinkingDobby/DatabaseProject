@@ -22,6 +22,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
     
     <ImageView
+        android:id="@+id/findPet_iv_top"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:scaleType="fitXY"
@@ -29,6 +30,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/top"/>
+
+    <TextView
+        android:id="@+id/findPet_tv_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="등록된 동물이 없습니다."
+        android:fontFamily="@font/noto_regular"
+        android:textColor="@color/colorGray"
+        android:includeFontPadding="false"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/findPet_iv_top"
+        app:layout_constraintBottom_toTopOf="@id/findPet_iv_bot"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
     
     <ImageView
         android:id="@+id/findPet_iv_bot"

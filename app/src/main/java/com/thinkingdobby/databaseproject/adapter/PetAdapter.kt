@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
@@ -28,13 +29,17 @@ class PetAdapter(val context: Context, private val dataList: MutableList<PetPost
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onBindViewHolder(holder: PetViewHolder, position: Int) {
         holder.bind(dataList[position], context, mode)
-        holder.itemView.pet_btn_info.setOnClickListener {
-            val intent = Intent(context, DetailActivity::class.java)
-            val bundle = Bundle()
-            bundle.putParcelable("selectedPet", dataList[position])
-            intent.putExtras(bundle)
-            intent.putExtra("mode", mode)
-            context.startActivity(intent)
+        try {
+            holder.itemView.pet_btn_info.setOnClickListener {
+                val intent = Intent(context, DetailActivity::class.java)
+                val bundle = Bundle()
+                bundle.putParcelable("selectedPet", dataList[position])
+                intent.putExtras(bundle)
+                intent.putExtra("mode", mode)
+                context.startActivity(intent)
+            }
+        } catch (e: Exception) {
+            Log.d("infoClick", e.toString())
         }
     }
 }
