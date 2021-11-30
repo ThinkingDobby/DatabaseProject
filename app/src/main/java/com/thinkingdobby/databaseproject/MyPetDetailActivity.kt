@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -71,6 +72,7 @@ class MyPetDetailActivity : AppCompatActivity() {
             }
 
             builder.setNegativeButton("예") {_, which ->
+                Toast.makeText(this@MyPetDetailActivity, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
                 GlobalScope.launch {
                     myPetDB?.myPetDao()?.delete(pet)
                     finish()

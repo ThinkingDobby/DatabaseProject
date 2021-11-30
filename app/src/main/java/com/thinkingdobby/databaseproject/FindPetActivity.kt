@@ -37,14 +37,14 @@ class FindPetActivity : AppCompatActivity() {
 
         if (mode == "FindPet") {
             findPet_tv_title.text = "주인이 찾고 있는 동물들"
-            findPet_btn_toFindPet.isEnabled = false
+            findPet_v_toFindPet.isEnabled = false
 
             findPet_btn_toFindPet.setImageResource(R.drawable.bot_icon_find_pet_on)
             findPet_btn_toFindPerson.setImageResource(R.drawable.bot_icon_find_person_off)
             findPet_btn_toHome.setImageResource(R.drawable.bot_icon_home_off)
         } else if (mode == "FindPerson") {
             findPet_tv_title.text = "주인을 찾고 있는 동물들"
-            findPet_btn_toFindPerson.isEnabled = false
+            findPet_v_toFindPerson.isEnabled = false
 
             findPet_btn_toFindPet.setImageResource(R.drawable.bot_icon_find_pet_off)
             findPet_btn_toFindPerson.setImageResource(R.drawable.bot_icon_find_person_on)
@@ -59,7 +59,7 @@ class FindPetActivity : AppCompatActivity() {
         }
 
         // 하단 메뉴
-        findPet_btn_toFindPet.setOnClickListener {
+        findPet_v_toFindPet.setOnClickListener {
             finish()
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
 
@@ -69,7 +69,7 @@ class FindPetActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
         }
 
-        findPet_btn_toFindPerson.setOnClickListener {
+        findPet_v_toFindPerson.setOnClickListener {
             finish()
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
 
@@ -79,7 +79,7 @@ class FindPetActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
         }
 
-        findPet_btn_toHome.setOnClickListener {
+        findPet_v_toHome.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)

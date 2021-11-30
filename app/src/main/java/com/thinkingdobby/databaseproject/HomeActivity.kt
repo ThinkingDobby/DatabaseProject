@@ -29,7 +29,7 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        home_btn_toFindPet.setOnClickListener {
+        home_v_toFindPet.setOnClickListener {
             finish()
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
 
@@ -39,7 +39,7 @@ class HomeActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
         }
 
-        home_btn_toFindPerson.setOnClickListener {
+        home_v_toFindPerson.setOnClickListener {
             finish()
             overridePendingTransition(R.anim.fadein, R.anim.fadeout)
 

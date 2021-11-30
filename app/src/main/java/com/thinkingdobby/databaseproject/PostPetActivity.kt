@@ -258,7 +258,7 @@ class PostPetActivity : AppCompatActivity() {
         val storageRef = FirebaseStorage.getInstance().reference.child("images").child(id)
 
         storageRef.putFile(uriPhoto!!).addOnSuccessListener {
-            Toast.makeText(this@PostPetActivity, "업로드 되었습니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@PostPetActivity, "업로드되었습니다.", Toast.LENGTH_SHORT).show()
 
             val intent = Intent(this, FindPetActivity::class.java)
             intent.putExtra("mode", mode)

@@ -69,6 +69,15 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.67" />
 
+    <View
+        android:id="@+id/home_v_toFindPet"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/home_gl_1"
+        app:layout_constraintTop_toTopOf="@id/home_iv_bot"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
     <ImageView
         android:id="@+id/home_btn_toFindPet"
         android:layout_width="32dp"
@@ -78,6 +87,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@id/home_iv_bot"
         android:src="@drawable/bot_icon_find_pet_off"/>
+
+    <View
+        android:id="@+id/home_v_toFindPerson"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/home_gl_1"
+        app:layout_constraintEnd_toEndOf="@id/home_gl_2"
+        app:layout_constraintTop_toTopOf="@id/home_iv_bot"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <ImageView
         android:id="@+id/home_btn_toFindPerson"
