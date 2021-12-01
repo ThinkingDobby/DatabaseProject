@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.os.Build
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -48,6 +47,9 @@ class PetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         if  (pet.find) {
             pet_iv_belt.visibility = View.VISIBLE
             pet_tv_belt.visibility = View.VISIBLE
+        } else {
+            pet_iv_belt.visibility = View.INVISIBLE
+            pet_tv_belt.visibility = View.INVISIBLE
         }
 
         val circularProgressDrawable = CircularProgressDrawable(context)
