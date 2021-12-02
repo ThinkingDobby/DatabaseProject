@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/pet_iv_shadowTop"
             android:layout_width="0dp"
-            android:layout_height="43dp"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +29,7 @@
         <ImageView
             android:id="@+id/pet_iv_belt"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:layout_marginTop="6dp"
             android:visibility="invisible"
@@ -55,7 +55,7 @@
         <ImageView
             android:id="@+id/pet_iv_shadowBot"
             android:layout_width="0dp"
-            android:layout_height="73dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +86,8 @@
             android:textColor="@color/colorWhite"
             android:layout_marginStart="17dp"
             android:includeFontPadding="false"
-            app:layout_constraintTop_toTopOf="@id/pet_iv_shadowBot"
+            android:layout_marginBottom="53dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/pet_iv_shadowBot"/>
 
         <TextView
